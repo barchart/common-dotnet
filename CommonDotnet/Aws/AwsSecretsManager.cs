@@ -21,6 +21,12 @@ public class AwsSecretsManager
     
     #region Constructor(s)
 
+    /// <summary>
+    ///     Initializes a new instance of the <see cref="AwsSecretsManager"/> class.
+    /// </summary>
+    /// <param name="region">
+    ///     The AWS region in which the Secrets Manager service is located.
+    /// </param>
     public AwsSecretsManager(string region = "us-east-1")
     {
         _region = region;
