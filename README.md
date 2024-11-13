@@ -1,2 +1,3 @@
-# common-net
-Common utilities for Microsoft .NET
+# @barchart/common-dotnet
+
+Common utilities for Microsoft .NET framework.
