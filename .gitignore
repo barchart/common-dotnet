@@ -1,9 +1,8 @@
 **/.DS_Store
 .vs/
-bin/
-obj/
-output/
-Logs/
+**/bin/
+**/obj/
+**/output/
 
 .idea/
 
