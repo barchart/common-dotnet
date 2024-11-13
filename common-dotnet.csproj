@@ -1,11 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <OutputType>Exe</OutputType>
+        <OutputType>Library</OutputType>
         <TargetFramework>net6.0</TargetFramework>
+        <OutputPath>bin\$(Configuration)\net6.0\</OutputPath>
         <RootNamespace>common_dotnet</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <GenerateProgramFile>false</GenerateProgramFile>
+        <IsPackable>true</IsPackable>
+        <PackageId>common-dotnet</PackageId>
+        <Title>common-dotnet</Title>
+        <Version>0.0.1</Version>
+        <Authors>Luka Sotra,Bryan Ingle</Authors>
+        <Company>Barchart</Company>
     </PropertyGroup>
 
     <ItemGroup>

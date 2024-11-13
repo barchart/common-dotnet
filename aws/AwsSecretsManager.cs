@@ -1,22 +1,39 @@
+#region Using Statements
+
 using Amazon.SecretsManager;
 using Amazon.SecretsManager.Model;
 
+#endregion
+
 namespace common_dotnet.aws;
 
+/// <summary>
+/// 
+/// </summary>
 public class AwsSecretsManager
 {
+    #region Fields
+    
     private readonly IAmazonSecretsManager _secretsManager;
+    
+    #endregion
+
+    #region Constructor(s)
 
     public AwsSecretsManager(IAmazonSecretsManager secretsManager)
     {
         _secretsManager = secretsManager;
     }
     
+    #endregion
+
+    #region Methods
+
     public async Task<string> GetSecretValueAsync(string secretName)
     {
         try
         {
-            var request = new GetSecretValueRequest
+            GetSecretValueRequest request = new()
             {
                 SecretId = secretName
             };
@@ -30,4 +47,6 @@ public class AwsSecretsManager
             throw;
         }
     }
+    
+    #endregion
 }
