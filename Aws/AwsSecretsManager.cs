@@ -5,7 +5,7 @@ using Amazon.SecretsManager.Model;
 
 #endregion
 
-namespace common_dotnet.aws;
+namespace CommonDotnet.Aws;
 
 /// <summary>
 ///     Provides functionality to communicate with an AWS Secrets Manager service to retrieve secret values.

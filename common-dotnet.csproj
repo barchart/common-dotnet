@@ -4,7 +4,7 @@
         <OutputType>Library</OutputType>
         <TargetFramework>net6.0</TargetFramework>
         <OutputPath>bin\$(Configuration)\net6.0\</OutputPath>
-        <RootNamespace>common_dotnet</RootNamespace>
+        <RootNamespace>CommonDotnet</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <GenerateProgramFile>false</GenerateProgramFile>
