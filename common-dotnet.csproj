@@ -8,4 +8,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="AWSSDK.SecretsManager" Version="4.0.0-preview.4" />
+    </ItemGroup>
+
 </Project>
