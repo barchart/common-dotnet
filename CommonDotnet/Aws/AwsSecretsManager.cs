@@ -1,5 +1,6 @@
 #region Using Statements
 
+using Amazon;
 using Amazon.SecretsManager;
 using Amazon.SecretsManager.Model;
 
@@ -13,16 +14,16 @@ namespace CommonDotnet.Aws;
 public class AwsSecretsManager
 {
     #region Fields
-    
-    private readonly IAmazonSecretsManager _secretsManager;
-    
-    #endregion
 
+    private readonly string _region;
+
+    #endregion
+    
     #region Constructor(s)
 
-    public AwsSecretsManager(IAmazonSecretsManager secretsManager)
+    public AwsSecretsManager(string region = "us-east-1")
     {
-        _secretsManager = secretsManager;
+        _region = region;
     }
     
     #endregion
@@ -38,23 +39,32 @@ public class AwsSecretsManager
     /// <returns>
     ///     The value of the secret.
     /// </returns>
-    public async Task<string> GetSecretValueAsync(string secretName)
+    public async Task<string> GetSecret(string secretName)
     {
+        // secretName = "JERQ_AGGREGATOR_PROD_OPENFEED";
+
+        IAmazonSecretsManager client = new AmazonSecretsManagerClient(RegionEndpoint.GetBySystemName(_region));
+
+        GetSecretValueRequest request = new GetSecretValueRequest
+        {
+            SecretId = secretName,
+            VersionStage = "AWSCURRENT"
+        };
+
+        GetSecretValueResponse response;
+
         try
         {
-            GetSecretValueRequest request = new()
-            {
-                SecretId = secretName
-            };
-
-            GetSecretValueResponse? response = await _secretsManager.GetSecretValueAsync(request);
-            return response.SecretString;
+            response = await client.GetSecretValueAsync(request);
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error retrieving secret: {ex.Message}");
+            
             throw;
         }
+
+        return response.SecretString;
     }
     
     #endregion
