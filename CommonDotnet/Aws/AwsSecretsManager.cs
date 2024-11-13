@@ -41,8 +41,6 @@ public class AwsSecretsManager
     /// </returns>
     public async Task<string> GetSecret(string secretName)
     {
-        // secretName = "JERQ_AGGREGATOR_PROD_OPENFEED";
-
         IAmazonSecretsManager client = new AmazonSecretsManagerClient(RegionEndpoint.GetBySystemName(_region));
 
         GetSecretValueRequest request = new GetSecretValueRequest
