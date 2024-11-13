@@ -1,6 +1,6 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "common-dotnet", "common-dotnet.csproj", "{0258160A-72DB-4D1E-9FF9-6212ED09F683}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonDotnet", "CommonDotnet\CommonDotnet.csproj", "{0258160A-72DB-4D1E-9FF9-6212ED09F683}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
