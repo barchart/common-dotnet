@@ -6,11 +6,11 @@ using CommonDotnet.Lang;
 
 namespace CommonDotnet.Tests.Lang;
 
-public class DisposableActionTests
+public class DisposableTests
 {
     private readonly ITestOutputHelper _testOutputHelper;
 
-    public DisposableActionTests(ITestOutputHelper testOutputHelper)
+    public DisposableTests(ITestOutputHelper testOutputHelper)
     {
         _testOutputHelper = testOutputHelper;
     }
@@ -20,9 +20,9 @@ public class DisposableActionTests
     {
         bool actionExecuted = false;
         Action action = () => actionExecuted = true;
-        DisposableAction disposableAction = new(action);
+        Disposable disposable = new(action);
 
-        disposableAction.Dispose();
+        disposable.Dispose();
 
         Assert.True(actionExecuted);
     }
@@ -30,6 +30,6 @@ public class DisposableActionTests
     [Fact]
     public void Constructor_NullAction_ThrowsArgumentNullException()
     {
-        Assert.Throws<ArgumentNullException>(() => new DisposableAction(null!));
+        Assert.Throws<ArgumentNullException>(() => new Disposable(null!));
     }
 }
