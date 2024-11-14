@@ -1,4 +1,4 @@
-namespace CommonDotnet.Collections;
+namespace Barchart.Common.Collections;
 
 /// <summary>
 ///     Represents a queue with a limited size.

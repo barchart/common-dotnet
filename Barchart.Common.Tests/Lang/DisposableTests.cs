@@ -1,10 +1,10 @@
 #region Using Statements
 
-using CommonDotnet.Lang;
+using Barchart.Common.Lang;
 
 #endregion
 
-namespace CommonDotnet.Tests.Lang;
+namespace Barchart.Common.Tests.Lang;
 
 public class DisposableTests
 {

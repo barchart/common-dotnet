@@ -1,4 +1,4 @@
-namespace CommonDotnet.Lang;
+namespace Barchart.Common.Lang;
 
 /// <summary>
 ///     An object that has an end-of-life process.

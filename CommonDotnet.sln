@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonDotnet", "CommonDotnet\CommonDotnet.csproj", "{0258160A-72DB-4D1E-9FF9-6212ED09F683}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Barchart.Common", "Barchart.Common\Barchart.Common.csproj", "{0258160A-72DB-4D1E-9FF9-6212ED09F683}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonDotnet.Tests", "CommonDotnet.Tests\CommonDotnet.Tests.csproj", "{792C2991-15E3-4FC2-92C6-128A7BB31FD9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Barchart.Common.Tests", "Barchart.Common.Tests\Barchart.Common.Tests.csproj", "{792C2991-15E3-4FC2-92C6-128A7BB31FD9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

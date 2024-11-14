@@ -1,10 +1,10 @@
 #region Using Statements
 
-using CommonDotnet.Collections;
+using Barchart.Common.Collections;
 
 #endregion
 
-namespace CommonDotnet.Tests.Collections;
+namespace Barchart.Common.Tests.Collections;
 
 public class LimitedSizeQueueTests
 {

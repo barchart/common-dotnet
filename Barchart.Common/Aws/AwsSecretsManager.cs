@@ -6,7 +6,7 @@ using Amazon.SecretsManager.Model;
 
 #endregion
 
-namespace CommonDotnet.Aws;
+namespace Barchart.Common.Aws;
 
 /// <summary>
 ///     Provides functionality to communicate with an AWS Secrets Manager service to retrieve secret values.

@@ -1,4 +1,4 @@
-namespace CommonDotnet.Lang;
+namespace Barchart.Common.Lang;
 
 public class DisposableAction : Disposable
 {

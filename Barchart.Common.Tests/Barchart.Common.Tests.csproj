@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Barchart.Common.Tests</RootNamespace>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
@@ -23,7 +24,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\CommonDotnet\CommonDotnet.csproj" />
+    <ProjectReference Include="..\Barchart.Common\Barchart.Common.csproj" />
   </ItemGroup>
 
 </Project>
