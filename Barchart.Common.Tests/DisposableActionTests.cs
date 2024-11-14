@@ -1,10 +1,8 @@
 #region Using Statements
 
-using Barchart.Common.Lang;
-
 #endregion
 
-namespace Barchart.Common.Tests.Lang;
+namespace Barchart.Common.Tests;
 
 public class DisposableActionTests
 {
