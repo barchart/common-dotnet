@@ -4,6 +4,8 @@ using Amazon;
 using Amazon.SecretsManager;
 using Amazon.SecretsManager.Model;
 
+using Newtonsoft.Json;
+
 #endregion
 
 namespace Barchart.Common.Aws;
@@ -69,6 +71,55 @@ public class AwsSecretsManager
         }
 
         return response.SecretString;
+    }
+
+    /// <summary>
+    ///     Retrieves the value of a secret from the AWS Secrets Manager service.
+    /// </summary>
+    /// <param name="secretName">
+    ///     The name of the secret to retrieve.
+    /// </param>
+    /// <typeparam name="T">
+    ///     The type to which the secret value should be deserialized.
+    /// </typeparam>
+    /// <returns>
+    ///     The value of the secret.
+    /// </returns>
+    /// <exception cref="InvalidOperationException">
+    ///     Thrown when the secret value cannot be deserialized.
+    /// </exception>
+
+    public async Task<T> GetSecret<T>(string secretName)
+    {
+        IAmazonSecretsManager client = new AmazonSecretsManagerClient(RegionEndpoint.GetBySystemName(_region));
+
+        GetSecretValueRequest request = new GetSecretValueRequest
+        {
+            SecretId = secretName,
+            VersionStage = "AWSCURRENT"
+        };
+
+        GetSecretValueResponse response;
+
+        try
+        {
+            response = await client.GetSecretValueAsync(request);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error retrieving secret: {ex.Message}");
+            
+            throw;
+        }
+        
+        T? deserialized = JsonConvert.DeserializeObject<T>(response.SecretString);
+        
+        if (deserialized == null)
+        {
+            throw new InvalidOperationException("Failed to deserialize secret.");
+        }
+
+        return deserialized;
     }
     
     #endregion
