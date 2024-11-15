@@ -4,7 +4,7 @@ using Amazon;
 using Amazon.SecretsManager;
 using Amazon.SecretsManager.Model;
 
-using Newtonsoft.Json;
+using System.Text.Json;
 
 #endregion
 
@@ -20,21 +20,26 @@ public class AwsSecretsManager
     private readonly IAmazonSecretsManager _secretsManager;
 
     #endregion
-
-
+    
     #region Constructor(s)
     
     /// <summary>
     ///     Initializes a new instance of the <see cref="AwsSecretsManager"/> class.
     /// </summary>
     /// <param name="secretsManager">
-    ///     
+    ///     The AWS Secrets Manager client to use.
     /// </param>
     public AwsSecretsManager(IAmazonSecretsManager secretsManager)
     {
         _secretsManager = secretsManager;
     }
     
+    /// <summary>
+    ///     Initializes a new instance of the <see cref="AwsSecretsManager"/> class.
+    /// </summary>
+    /// <param name="region">
+    ///     The AWS region in which the Secrets Manager service is located.
+    /// </param>
     public AwsSecretsManager(string region = "us-east-1") : this(new AmazonSecretsManagerClient(RegionEndpoint.GetBySystemName(region)))
     {
         
@@ -113,7 +118,7 @@ public class AwsSecretsManager
             throw;
         }
         
-        T? deserialized = JsonConvert.DeserializeObject<T>(response.SecretString);
+        T? deserialized = JsonSerializer.Deserialize<T>(response.SecretString);
         
         if (deserialized == null)
         {
