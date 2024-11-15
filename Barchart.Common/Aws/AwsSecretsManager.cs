@@ -17,21 +17,27 @@ public class AwsSecretsManager
 {
     #region Fields
 
-    private readonly string _region;
+    private readonly IAmazonSecretsManager _secretsManager;
 
     #endregion
-    
-    #region Constructor(s)
 
+
+    #region Constructor(s)
+    
     /// <summary>
     ///     Initializes a new instance of the <see cref="AwsSecretsManager"/> class.
     /// </summary>
-    /// <param name="region">
-    ///     The AWS region in which the Secrets Manager service is located.
+    /// <param name="secretsManager">
+    ///     
     /// </param>
-    public AwsSecretsManager(string region = "us-east-1")
+    public AwsSecretsManager(IAmazonSecretsManager secretsManager)
     {
-        _region = region;
+        _secretsManager = secretsManager;
+    }
+    
+    public AwsSecretsManager(string region = "us-east-1") : this(new AmazonSecretsManagerClient(RegionEndpoint.GetBySystemName(region)))
+    {
+        
     }
     
     #endregion
@@ -49,8 +55,6 @@ public class AwsSecretsManager
     /// </returns>
     public async Task<string> GetSecret(string secretName)
     {
-        IAmazonSecretsManager client = new AmazonSecretsManagerClient(RegionEndpoint.GetBySystemName(_region));
-
         GetSecretValueRequest request = new GetSecretValueRequest
         {
             SecretId = secretName,
@@ -61,7 +65,7 @@ public class AwsSecretsManager
 
         try
         {
-            response = await client.GetSecretValueAsync(request);
+            response = await _secretsManager.GetSecretValueAsync(request);
         }
         catch (Exception ex)
         {
@@ -88,11 +92,8 @@ public class AwsSecretsManager
     /// <exception cref="InvalidOperationException">
     ///     Thrown when the secret value cannot be deserialized.
     /// </exception>
-
     public async Task<T> GetSecret<T>(string secretName)
     {
-        IAmazonSecretsManager client = new AmazonSecretsManagerClient(RegionEndpoint.GetBySystemName(_region));
-
         GetSecretValueRequest request = new GetSecretValueRequest
         {
             SecretId = secretName,
@@ -103,7 +104,7 @@ public class AwsSecretsManager
 
         try
         {
-            response = await client.GetSecretValueAsync(request);
+            response = await _secretsManager.GetSecretValueAsync(request);
         }
         catch (Exception ex)
         {

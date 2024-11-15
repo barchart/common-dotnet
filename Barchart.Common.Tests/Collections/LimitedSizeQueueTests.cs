@@ -62,6 +62,6 @@ public class LimitedSizeQueueTests
         Assert.Equal(3, queue.Count);
         Assert.Equal(1, queue.Peek());
     }
-
+    
     #endregion
 }
