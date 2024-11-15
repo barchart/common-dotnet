@@ -2,8 +2,8 @@
 
     <PropertyGroup>
         <OutputType>Library</OutputType>
-        <TargetFramework>net6.0</TargetFramework>
-        <OutputPath>bin\$(Configuration)\net6.0\</OutputPath>
+        <TargetFramework>net8.0</TargetFramework>
+        <OutputPath>bin\$(Configuration)\net8.0\</OutputPath>
         <RootNamespace>Barchart.Common</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
