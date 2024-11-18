@@ -5,19 +5,13 @@ namespace Barchart.Common;
 /// </summary>
 public class Disposable : IDisposable
 {
-    #region Fields
-
-    private bool _disposed;
-    
-    #endregion
-
     #region Properties
 
     /// <summary>
     ///     Returns true if the <see cref="Dispose"/> function has been invoked.
     /// </summary>
-    public bool IsDisposed => _disposed;
-    
+    public bool IsDisposed { get; private set; }
+
     #endregion
 
     #region Methods
@@ -29,12 +23,12 @@ public class Disposable : IDisposable
     /// </summary>
     public void Dispose()
     {
-        if (_disposed)
+        if (IsDisposed)
         {
             return;
         }
 
-        _disposed = true;
+        IsDisposed = true;
 
         OnDispose();
         GC.SuppressFinalize(this);
