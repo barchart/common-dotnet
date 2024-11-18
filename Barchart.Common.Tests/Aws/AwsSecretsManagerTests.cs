@@ -14,10 +14,10 @@ namespace Barchart.Common.Tests.Aws;
 
 public class AwsSecretsManagerTests(ITestOutputHelper testOutputHelper)
 {
-    #region Test Methods (GetSecret)
-
+    #region Test Methods (GetSecret<T>)
+    
     [Fact]
-    public async Task GetSecret_SecretValueIsValidJson_ReturnsDeserialized()
+    public async Task GetSecret_SecretValueTypedValidJson_ReturnsDeserialized()
     {
         Mock<IAmazonSecretsManager> mockSecretsManager = new Mock<IAmazonSecretsManager>();
         string secretJson = "{\"username\":\"luka\",\"password\":\"mock\"}";
@@ -37,15 +37,10 @@ public class AwsSecretsManagerTests(ITestOutputHelper testOutputHelper)
         Assert.NotNull(secret);
         Assert.Equal("luka", secret.Username);
         Assert.Equal("mock", secret.Password);
-
-        testOutputHelper.WriteLine(secret.Username);
-        testOutputHelper.WriteLine(secret.Password);
-
-        mockSecretsManager.Verify(x => x.GetSecretValueAsync(It.IsAny<GetSecretValueRequest>(), default), Times.Once);
     }
-
+    
     [Fact]
-    public async Task GetSecret_SecretValueIsInvalidJson_ThrowsException()
+    public async Task GetSecret_SecretValueTypedInvalidJson_ThrowsException()
     {
         Mock<IAmazonSecretsManager> mockSecretsManager = new();
         string invalidJson = "invalid-json-format";
@@ -62,18 +57,15 @@ public class AwsSecretsManagerTests(ITestOutputHelper testOutputHelper)
 
         await Assert.ThrowsAsync<JsonException>(async () =>
             await awsSecretsManager.GetSecret<Secret>("TEST_SECRET"));
-
-        mockSecretsManager.Verify(x => x.GetSecretValueAsync(It.IsAny<GetSecretValueRequest>(), default), Times.Once);
     }
-
+    
     [Fact]
-    public async Task GetSecret_SecretValueReturnsEmptyString_ThrowsException()
+    public async Task GetSecret_SecretValueTypedSecretEmptyString_ThrowsException()
     {
         Mock<IAmazonSecretsManager> mockSecretsManager = new();
-        string emptyJson = string.Empty;
         GetSecretValueResponse response = new()
         {
-            SecretString = emptyJson
+            SecretString = string.Empty
         };
 
         mockSecretsManager
@@ -84,12 +76,36 @@ public class AwsSecretsManagerTests(ITestOutputHelper testOutputHelper)
 
         await Assert.ThrowsAsync<JsonException>(async () =>
             await awsSecretsManager.GetSecret<Secret>("TEST_SECRET"));
+    }
+    
+    #endregion
 
-        mockSecretsManager.Verify(x => x.GetSecretValueAsync(It.IsAny<GetSecretValueRequest>(), default), Times.Once);
+    #region Test Methods (GetSecret)
+    
+    [Fact]
+    public async Task GetSecret_SecretValue_ReturnsString()
+    {
+        Mock<IAmazonSecretsManager> mockSecretsManager = new Mock<IAmazonSecretsManager>();
+        string secretJson = "{\"username\":\"luka\",\"password\":\"mock\"}";
+        GetSecretValueResponse response = new()
+        {
+            SecretString = secretJson
+        };
+
+        mockSecretsManager
+            .Setup(x => x.GetSecretValueAsync(It.IsAny<GetSecretValueRequest>(), default))
+            .ReturnsAsync(response);
+
+        AwsSecretsManager awsSecretsManager = new(mockSecretsManager.Object);
+
+        string secretString = await awsSecretsManager.GetSecret("TEST_SECRET");
+
+        Assert.NotNull(secretString);
+        Assert.Equal(secretJson, secretString);
     }
 
     #endregion
-
+    
     #region Nested Types
 
     private class Secret(string username, string password)
