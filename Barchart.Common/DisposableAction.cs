@@ -1,28 +1,20 @@
 namespace Barchart.Common;
 
-public class DisposableAction : Disposable
+public class DisposableAction(Action disposeAction) : Disposable
 {
     #region Fields
     
-    private Action _disposeAction;
+    private Action? _disposeAction = disposeAction ?? throw new ArgumentNullException(nameof(disposeAction));
     
     #endregion
 
-    #region Constructor(s)
-
-    public DisposableAction(Action disposeAction)
-    {
-        _disposeAction = disposeAction ?? throw new ArgumentNullException(nameof(disposeAction));
-    }
-
-    #endregion
 
     #region Methods
 
     protected override void OnDispose()
     {
-        _disposeAction.Invoke();
-        _disposeAction = null!;
+        _disposeAction?.Invoke();
+        _disposeAction = null;
     }
     
     #endregion
