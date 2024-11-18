@@ -1,7 +1,3 @@
-#region Using Statements
-
-#endregion
-
 namespace Barchart.Common.Tests;
 
 public class DisposableActionTests

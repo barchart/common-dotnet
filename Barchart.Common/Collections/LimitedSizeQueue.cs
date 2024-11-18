@@ -26,7 +26,8 @@ public class LimitedSizeQueue<TElement> : Queue<TElement>
     #region Methods
 
     /// <summary>
-    ///     Adds an item to the end of the queue. If adding the item exceeds the limit, it removes items from the front of the queue until the size is within the limit.
+    ///     Adds an item to the end of the queue.
+    ///     If adding the item exceeds the limit, it removes items from the front of the queue until the size is within the limit.
     /// </summary>
     /// <param name="item">
     ///     The item to add to the queue.

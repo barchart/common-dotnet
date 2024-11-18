@@ -1,13 +1,21 @@
 namespace Barchart.Common;
 
-public class DisposableAction(Action disposeAction) : Disposable
+public class DisposableAction : Disposable
 {
     #region Fields
     
-    private Action? _disposeAction = disposeAction ?? throw new ArgumentNullException(nameof(disposeAction));
+    private Action? _disposeAction;
     
     #endregion
 
+    #region Constructor(s)
+
+    public DisposableAction(Action disposeAction)
+    {
+        _disposeAction = disposeAction ?? throw new ArgumentNullException(nameof(disposeAction));
+    }
+
+    #endregion
 
     #region Methods
 

@@ -1,7 +1,3 @@
-#region Using Statements
-
-#endregion
-
 namespace Barchart.Common.Tests;
 
 public class DisposableTests
@@ -37,7 +33,7 @@ public class DisposableTests
     public void Dispose_CallsOnDispose()
     {
         bool onDisposeCalled = false;
-        var disposable = new TestDisposable(() => onDisposeCalled = true);
+        TestDisposable disposable = new(() => onDisposeCalled = true);
 
         disposable.Dispose();
 
@@ -54,7 +50,7 @@ public class DisposableTests
         bool actionExecuted = false;
         Action action = () => actionExecuted = true;
 
-        var disposable = Disposable.FromAction(action);
+        Disposable disposable = Disposable.FromAction(action);
         disposable.Dispose();
 
         Assert.True(actionExecuted);
@@ -67,7 +63,7 @@ public class DisposableTests
     [Fact]
     public void GetEmpty_CreatesDisposableThatDoesNothing()
     {
-        var disposable = Disposable.GetEmpty();
+        Disposable disposable = Disposable.GetEmpty();
 
         disposable.Dispose();
 
