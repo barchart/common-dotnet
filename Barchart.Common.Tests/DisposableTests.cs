@@ -20,7 +20,7 @@ public class DisposableTests
     #region Test Methods (Dispose)
     
     [Fact]
-    public void Dispose_SetsIsDisposed()
+    public void Dispose_SetsIsDisposed_ChecksFlag()
     {
         Disposable disposable = new();
 
@@ -30,7 +30,7 @@ public class DisposableTests
     }
 
     [Fact]
-    public void Dispose_CallsOnDispose()
+    public void Dispose_CallsOnDispose_SetsFlag()
     {
         bool onDisposeCalled = false;
         TestDisposable disposable = new(() => onDisposeCalled = true);
@@ -45,7 +45,7 @@ public class DisposableTests
     #region Test Methods (FromAction)
 
     [Fact]
-    public void FromAction_CreatesDisposableAction()
+    public void FromAction_CreatesDisposableAction_ExecutesAction()
     {
         bool actionExecuted = false;
         Action action = () => actionExecuted = true;
@@ -61,7 +61,7 @@ public class DisposableTests
     #region Test Methods (GetEmpty)
     
     [Fact]
-    public void GetEmpty_CreatesDisposableThatDoesNothing()
+    public void GetEmpty_CreatesDisposableThatDoesNothing_ChecksFlag()
     {
         Disposable disposable = Disposable.GetEmpty();
 

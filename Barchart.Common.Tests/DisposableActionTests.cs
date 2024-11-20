@@ -30,7 +30,7 @@ public class DisposableActionTests
     #region Test Methods (Dispose)
     
     [Fact]
-    public void Dispose_ExecutesAction()
+    public void Dispose_ExecutesAction_SetsFlag()
     {
         bool actionExecuted = false;
         Action action = () => actionExecuted = true;
