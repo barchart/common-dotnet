@@ -1,4 +1,4 @@
-namespace Barchart.Common;
+namespace Barchart.Common.Core;
 
 public class DisposableAction : Disposable
 {

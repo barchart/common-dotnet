@@ -1,4 +1,6 @@
-namespace Barchart.Common.Tests;
+using Barchart.Common.Core;
+
+namespace Barchart.Common.Tests.Core;
 
 public class DisposableTests
 {
