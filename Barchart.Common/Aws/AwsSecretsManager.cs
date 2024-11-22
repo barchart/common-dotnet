@@ -60,7 +60,7 @@ public class AwsSecretsManager
     /// </returns>
     public async Task<string> GetSecret(string secretName)
     {
-        GetSecretValueRequest request = new GetSecretValueRequest
+        GetSecretValueRequest request = new()
         {
             SecretId = secretName,
             VersionStage = "AWSCURRENT"
@@ -99,7 +99,7 @@ public class AwsSecretsManager
     /// </exception>
     public async Task<T> GetSecret<T>(string secretName)
     {
-        GetSecretValueRequest request = new GetSecretValueRequest
+        GetSecretValueRequest request = new()
         {
             SecretId = secretName,
             VersionStage = "AWSCURRENT"

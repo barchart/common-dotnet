@@ -12,7 +12,12 @@ public class DisposableAction : Disposable
 
     public DisposableAction(Action disposeAction)
     {
-        _disposeAction = disposeAction ?? throw new ArgumentNullException(nameof(disposeAction));
+        _disposeAction = disposeAction;
+        
+        if (_disposeAction == null)
+        {
+            throw new ArgumentNullException(nameof(disposeAction));
+        }
     }
 
     #endregion

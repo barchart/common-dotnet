@@ -34,7 +34,7 @@ public class AwsSecretsManagerTests
     [Fact]
     public async Task GetSecret_SecretValue_ReturnsString()
     {
-        Mock<IAmazonSecretsManager> mockSecretsManager = new Mock<IAmazonSecretsManager>();
+        Mock<IAmazonSecretsManager> mockSecretsManager = new();
         string secretJson = "{\"username\":\"luka\",\"password\":\"mock\"}";
         GetSecretValueResponse response = new()
         {
@@ -60,7 +60,7 @@ public class AwsSecretsManagerTests
     [Fact]
     public async Task GetSecret_SecretValueTypedValidJson_ReturnsDeserialized()
     {
-        Mock<IAmazonSecretsManager> mockSecretsManager = new Mock<IAmazonSecretsManager>();
+        Mock<IAmazonSecretsManager> mockSecretsManager = new();
         string secretJson = "{\"username\":\"luka\",\"password\":\"mock\"}";
         GetSecretValueResponse response = new()
         {
