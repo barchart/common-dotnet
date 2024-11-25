@@ -1,4 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="../CodeSigningProperties.targets" />
 
     <PropertyGroup>
         <OutputType>Library</OutputType>
@@ -13,11 +14,34 @@
         <Title>common-dotnet</Title>
         <Version>0.0.1</Version>
         <Authors>Luka Sotra,Bryan Ingle</Authors>
-        <Company>Barchart</Company>
+        <Company>Barchart.com, Inc.</Company>
+        <PackageProjectUrl>https://github.com/barchart/common-dotnet</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/barchart/common-dotnet</RepositoryUrl>
+        <RepositoryType>Git</RepositoryType>
+        <PackageTags>Utilities;Barchart;barchart.com</PackageTags>
+        <SignAssembly>true</SignAssembly>
+        <Configurations>Debug;Release;Publish</Configurations>
+        <Copyright>Copyright © 2024 Barchart.com, Inc.</Copyright>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="AWSSDK.SecretsManager" Version="4.0.0-preview.4" />
     </ItemGroup>
+
+    <PropertyGroup>
+        <TargetsTriggeredByCompilation>Sign</TargetsTriggeredByCompilation>
+    </PropertyGroup>
+
+    <Target Name="Sign" Condition="'$(Configuration)' == 'Publish'">
+        <SignFile CertificateThumbprint="$(CertificateThumbprint)" SigningTarget="@(IntermediateAssembly)" TimestampUrl="$(TimestampUrl)" />
+    </Target>
+
+    <Target Name="SignAfterPack" DependsOnTargets="Pack" Condition="'$(Configuration)' == 'Publish'">
+        <Exec Command="nuget sign $(OutputPath)..\$(PackageId).$(PackageVersion).nupkg -CertificateFingerprint $(CertificateThumbprint) -Timestamper $(TimestampUrl)" />
+    </Target>
+
+    <Target Name="PublishToNuGet" DependsOnTargets="SignAfterPack" Condition="'$(Configuration)' == 'Publish'">
+        <Exec Command="nuget push $(OutputPath)..\$(PackageId).$(PackageVersion).nupkg -ApiKey $(NuGetApiKey) -Source https://api.nuget.org/v3/index.json" />
+    </Target>
 
 </Project>
