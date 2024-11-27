@@ -16,7 +16,7 @@ A _public_ library of .NET utilities.
 To install the package, use the following command:
 
 ```sh
-dotnet add package Barchart.Common.DotNet
+dotnet add package Barchart.Common
 ```
 
 ## License
