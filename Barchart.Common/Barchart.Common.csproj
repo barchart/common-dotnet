@@ -10,7 +10,7 @@
         <Nullable>enable</Nullable>
         <GenerateProgramFile>false</GenerateProgramFile>
         <IsPackable>true</IsPackable>
-        <PackageId>Barchart.Common.DotNet</PackageId>
+        <PackageId>Barchart.Common</PackageId>
         <Title>common-dotnet</Title>
         <Version>0.0.1</Version>
         <Authors>Luka Sotra,Bryan Ingle</Authors>
