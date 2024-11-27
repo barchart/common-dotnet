@@ -4,7 +4,7 @@
     <PropertyGroup>
         <OutputType>Library</OutputType>
         <TargetFrameworks>net8.0</TargetFrameworks>
-        <OutputPath>bin\$(Configuration)\net8.0\</OutputPath>
+        <OutputPath>bin\$(Configuration)</OutputPath>
         <RootNamespace>Barchart.Common</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
