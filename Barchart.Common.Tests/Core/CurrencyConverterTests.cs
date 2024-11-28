@@ -46,8 +46,6 @@ public class CurrencyConverterTests
         Assert.True(Math.Abs(converter.GetExchangeRate(_source, _target) - rate) < TOLERANCE);
     }
     
-    #endregion
-    
     [Fact]
     public void SetExchangeRate_ZeroRate_ThrowsArgumentException()
     {
@@ -57,7 +55,9 @@ public class CurrencyConverterTests
         Assert.Throws<ArgumentException>(() => converter.SetExchangeRate(_source, _target, rate));
     }
     
-    #region TestMEthods (GetExchangeRate)
+    #endregion
+    
+    #region TestMethods (GetExchangeRate)
 
     [Fact]
     public void GetExchangeRate_InvalidData_ThrowsInvalidOperationException()
@@ -99,6 +99,8 @@ public class CurrencyConverterTests
         Assert.Equal(expected, result);
     }
 
+    #endregion
+    
     #region Test Methods (HasExchangeRate)
 
     [Fact]
@@ -121,8 +123,6 @@ public class CurrencyConverterTests
 
         Assert.False(converter.HasExchangeRate(_source, _target));
     }
-    
-    #endregion
     
     #endregion
 }
