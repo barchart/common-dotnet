@@ -20,7 +20,7 @@ public class CurrencyTests
     #endregion
 
     [Fact]
-    public void Constructor_ValidInput_ShouldInitializeProperties()
+    public void Constructor_ValidInput_InitializesProperties()
     {
         string code = "TEST";
         string description = "Test Currency";
@@ -36,7 +36,7 @@ public class CurrencyTests
     }
 
     [Fact]
-    public void Constructor_MissingAlternateDescription_ShouldDefaultToDescription()
+    public void Constructor_MissingAlternateDescription_SetsAlternateDescriptionToDescription()
     {
         string code = "TEST";
         string description = "Test Currency";
@@ -51,13 +51,13 @@ public class CurrencyTests
     [InlineData(null, "Test Currency", 2)]
     [InlineData("TEST", null, 2)]
     [InlineData("TEST", "Test Currency", -1)]
-    public void Constructor_InvalidInput_ShouldThrowArgumentException(string code, string description, int precision)
+    public void Constructor_InvalidInput_ThrowsArgumentException(string code, string description, int precision)
     {
         Assert.Throws<ArgumentException>(() => new Currency(code, description, precision));
     }
 
     [Fact]
-    public void FromCode_ValidCode_ShouldReturnCurrency()
+    public void FromCode_ValidCode_ReturnsCurrency()
     {
         Currency? result = Currency.FromCode("USD");
 
@@ -66,7 +66,7 @@ public class CurrencyTests
     }
 
     [Fact]
-    public void FromCode_InvalidCode_ShouldReturnNull()
+    public void FromCode_InvalidCode_ReturnsNull()
     {
         Currency? result = Currency.FromCode("INVALID");
 
@@ -74,7 +74,7 @@ public class CurrencyTests
     }
     
     [Fact]
-    public void TryParse_ValidCode_ShouldReturnTrueAndCurrency()
+    public void TryParse_ValidCode_ReturnsTrueAndCurrency()
     {
         bool success = Currency.TryParse("AUD", out var currency);
 
@@ -84,7 +84,7 @@ public class CurrencyTests
     }
 
     [Fact]
-    public void TryParse_InvalidCode_ShouldReturnFalseAndNull()
+    public void TryParse_InvalidCode_ReturnsFalseAndNull()
     {
         bool success = Currency.TryParse("INVALID", out var currency);
 
@@ -93,7 +93,7 @@ public class CurrencyTests
     }
 
     [Fact]
-    public void Equals_SameCode_ShouldReturnTrue()
+    public void Equals_SameCode_ReturnsTrue()
     {
         Currency currency1 = Currency.USD;
         Currency? currency2 = Currency.FromCode("USD");
@@ -102,7 +102,7 @@ public class CurrencyTests
     }
 
     [Fact]
-    public void Equals_DifferentCode_ShouldReturnFalse()
+    public void Equals_DifferentCode_ReturnsFalse()
     {
         Currency currency1 = Currency.USD;
         Currency currency2 = Currency.EUR;
@@ -111,16 +111,17 @@ public class CurrencyTests
     }
 
     [Fact]
-    public void GetHashCode_SameCode_ShouldReturnSameHash()
+    public void GetHashCode_SameCode_ReturnsSameHash()
     {
         Currency currency1 = Currency.USD;
         Currency? currency2 = Currency.FromCode("USD");
 
+        Assert.NotNull(currency2);
         Assert.Equal(currency1.GetHashCode(), currency2.GetHashCode());
     }
 
     [Fact]
-    public void GetItems_ShouldReturnAllCurrencies()
+    public void GetItems_WhenCalled_ReturnsAllCurrencies()
     {
         List<Currency> items = Currency.GetItems().ToList();
 
