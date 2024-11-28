@@ -6,6 +6,7 @@
         <TargetFrameworks>net8.0</TargetFrameworks>
         <OutputPath>bin\$(Configuration)\net8.0\</OutputPath>
         <RootNamespace>Barchart.Common</RootNamespace>
+        <PackageIcon>BarchartLogo.png</PackageIcon>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <GenerateProgramFile>false</GenerateProgramFile>
@@ -31,6 +32,12 @@
     <PropertyGroup>
         <TargetsTriggeredByCompilation>Sign</TargetsTriggeredByCompilation>
     </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="..\BarchartLogo.png" PackagePath="">
+            <Pack>True</Pack>
+        </None>
+    </ItemGroup>
 
     <Target Name="Sign" Condition="'$(Configuration)' == 'Publish'">
         <SignFile CertificateThumbprint="$(CertificateThumbprint)" SigningTarget="@(IntermediateAssembly)" TimestampUrl="$(TimestampUrl)" />
