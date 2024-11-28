@@ -1,27 +1,27 @@
 namespace Barchart.Common.Core;
 
 /// <summary>
-///     Represents a currency.
+///     Represents a utility class that provides information about currencies.
 /// </summary>
 public class Currency
 {
     #region Fields
-    
-    private static readonly Dictionary<Type, List<Currency>> Types = new();
-    
+
+    private static readonly List<Currency> Currencies = new();
+
     #endregion
 
     #region Properties
-    
-    public static Currency AUD { get; } = new Currency("AUD", "Australian Dollar", 2, "AUD$");
-    public static Currency CAD { get; } = new Currency("CAD", "Canadian Dollar", 2, "CAD$");
-    public static Currency CHF { get; } = new Currency("CHF", "Swiss Franc", 2, "CHF");
-    public static Currency EUR { get; } = new Currency("EUR", "Euro", 2, "EUR");
-    public static Currency GBP { get; } = new Currency("GBP", "British Pound", 2, "GBP");
-    public static Currency GBX { get; } = new Currency("GBX", "British Penny", 2, "GBX");
-    public static Currency HKD { get; } = new Currency("HKD", "Hong Kong Dollar", 2, "HK$");
-    public static Currency JPY { get; } = new Currency("JPY", "Japanese Yen", 2, "JPY");
-    public static Currency USD { get; } = new Currency("USD", "US Dollar", 2, "US$");
+
+    public static Currency AUD { get; } = new("AUD", "Australian Dollar", 2, "AUD$");
+    public static Currency CAD { get; } = new("CAD", "Canadian Dollar", 2, "CAD$");
+    public static Currency CHF { get; } = new("CHF", "Swiss Franc", 2, "CHF");
+    public static Currency EUR { get; } = new("EUR", "Euro", 2, "EUR");
+    public static Currency GBP { get; } = new("GBP", "British Pound", 2, "GBP");
+    public static Currency GBX { get; } = new("GBX", "British Penny", 2, "GBX");
+    public static Currency HKD { get; } = new("HKD", "Hong Kong Dollar", 2, "HK$");
+    public static Currency JPY { get; } = new("JPY", "Japanese Yen", 2, "JPY");
+    public static Currency USD { get; } = new("USD", "US Dollar", 2, "US$");
 
     public string Code { get; }
     public string Description { get; }
@@ -31,8 +31,8 @@ public class Currency
     #endregion
 
     #region Constructor(s)
-    
-    private Currency(string code, string description, int precision, string? alternateDescription = null)
+
+    public Currency(string code, string description, int precision, string? alternateDescription = null)
     {
         if (string.IsNullOrEmpty(code))
         {
@@ -54,127 +54,68 @@ public class Currency
         Precision = precision;
         AlternateDescription = alternateDescription ?? description;
 
-        var type = GetType();
-
-        if (!Types.ContainsKey(type))
+        if (Currencies.All(c => c.Code != code))
         {
-            Types[type] = new List<Currency>();
-        }
-
-        if (FromCode(type, code) == null)
-        {
-            Types[type].Add(this);
+            Currencies.Add(this);
         }
     }
-    
+
     #endregion
 
     #region Methods
-    
-    /// <summary>
-    ///     Returns the currency with the specified code.
-    /// </summary>
-    /// <param name="code">
-    ///     The currency code.
-    /// </param>
-    /// <typeparam name="T">
-    ///     The type of currency.
-    /// </typeparam>
-    /// <returns>
-    ///     The currency with the specified code, or <see langword="null"/> if no currency with the specified code is found.
-    /// </returns>
-    public static Currency? FromCode<T>(string code) where T : Currency
-    {
-        return FromCode(typeof(T), code);
-    }
 
     /// <summary>
     ///     Returns the currency with the specified code.
     /// </summary>
-    /// <param name="type">
-    ///     The type of currency.
-    /// </param>
     /// <param name="code">
     ///     The currency code.
     /// </param>
     /// <returns>
     ///     The currency with the specified code, or <see langword="null"/> if no currency with the specified code is found.
     /// </returns>
-    public static Currency? FromCode(Type type, string code)
+    public static Currency? FromCode(string code)
     {
-        return GetItems(type).FirstOrDefault(x => x.Code == code);
+        return Currencies.FirstOrDefault(x => x.Code.Equals(code, StringComparison.OrdinalIgnoreCase));
     }
 
     /// <summary>
-    ///     Returns all currencies of the specified type.
+    ///     Returns all currencies.
     /// </summary>
-    /// <param name="type">
-    ///     The type of currency.
-    /// </param>
     /// <returns>
-    ///     All currencies of the specified type.
+    ///     All currencies.
     /// </returns>
-    public static IEnumerable<Currency> GetItems(Type type)
+    public static IEnumerable<Currency> GetItems()
     {
-        return Types.TryGetValue(type, out List<Currency>? items) ? items : Enumerable.Empty<Currency>();
+        return Currencies.AsReadOnly();
     }
 
     /// <summary>
-    ///     Returns all currencies of the specified type.
+    ///     Tries to parse a currency code into a currency object.
     /// </summary>
     /// <param name="code">
     ///     The currency code.
-    /// </param>
-    /// <returns>
-    ///     All currencies of the specified type.
-    /// </returns>
-    public static Currency? Parse(string code)
-    {
-        return FromCode<Currency>(code);
-    }
-
-    /// <summary>
-    ///     Returns all currencies of the specified type.
-    /// </summary>
-    /// <param name="code">
-    ///    The currency code.
     /// </param>
     /// <param name="currency">
-    ///     The currency.
+    ///     The resulting currency object.
     /// </param>
     /// <returns>
-    ///    <see langword="true"/> if the currency was successfully parsed; otherwise, <see langword="false"/>.
+    ///     <see langword="true"/> if parsing was successful; otherwise, <see langword="false"/>.
     /// </returns>
     public static bool TryParse(string code, out Currency? currency)
     {
-        currency = FromCode<Currency>(code);
+        currency = FromCode(code);
         return currency != null;
     }
 
-    /// <summary>
-    ///     Returns the currency code.
-    /// </summary>
-    /// <param name="obj">
-    ///     The currency.
-    /// </param>
-    /// <returns>
-    ///     The currency code.
-    /// </returns>
     public override bool Equals(object? obj)
     {
-        return obj is Currency other && other.GetType() == GetType() && other.Code == Code;
+        return obj is Currency other && other.Code == Code;
     }
 
-    /// <summary>
-    ///     Returns the hash code.
-    /// </summary>
-    /// <returns>
-    ///     The hash code.
-    /// </returns>
     public override int GetHashCode()
     {
-        return HashCode.Combine(GetType(), Code);
+        return HashCode.Combine(Code);
     }
-    
+
     #endregion
 }
