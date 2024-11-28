@@ -51,9 +51,9 @@ public class CurrencyTests
     [InlineData(null, "Test Currency", 2)]
     [InlineData("TEST", null, 2)]
     [InlineData("TEST", "Test Currency", -1)]
-    public void Constructor_InvalidInput_ThrowsArgumentException(string code, string description, int precision)
+    public void Constructor_InvalidInput_ThrowsArgumentException(string? code, string? description, int precision)
     {
-        Assert.Throws<ArgumentException>(() => new Currency(code, description, precision));
+        Assert.Throws<ArgumentException>(() => new Currency(code!, description!, precision));
     }
 
     [Fact]
