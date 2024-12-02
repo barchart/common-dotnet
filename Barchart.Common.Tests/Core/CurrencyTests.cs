@@ -1,4 +1,9 @@
+#region Using Statements
+
 using Barchart.Common.Core;
+using Barchart.Common.Extensions;
+
+#endregion
 
 namespace Barchart.Common.Tests.Core;
 
@@ -19,114 +24,118 @@ public class CurrencyTests
 
     #endregion
 
-    [Fact]
-    public void Constructor_ValidInput_InitializesProperties()
-    {
-        string code = "TEST";
-        string description = "Test Currency";
-        int precision = 2;
-        string alternateDescription = "T$";
-
-        Currency currency = new(code, description, precision, alternateDescription);
-
-        Assert.Equal(code, currency.Code);
-        Assert.Equal(description, currency.Description);
-        Assert.Equal(precision, currency.Precision);
-        Assert.Equal(alternateDescription, currency.AlternateDescription);
-    }
+    #region Test Methods (GetDescription)
 
     [Fact]
-    public void Constructor_MissingAlternateDescription_SetsAlternateDescriptionToDescription()
+    public void GetDescription_ValidCurrency_ReturnsDescription()
     {
-        string code = "TEST";
-        string description = "Test Currency";
-        int precision = 2;
+        Assert.Equal("US Dollar", Currency.USD.GetDescription());
+    }
+    
+    #endregion
 
-        Currency currency = new(code, description, precision);
+    #region Test Methods (GetPrecision)
+    
+    [Fact]
+    public void GetPrecision_ValidCurrency_ReturnsPrecision()
+    {
+        Assert.Equal(2, Currency.USD.GetPrecision());
+    }
+    
+    #endregion
 
-        Assert.Equal(description, currency.AlternateDescription);
+    #region Test Methods (GetAlternateDescription)
+    
+    [Fact]
+    public void GetAlternateDescription_ValidCurrency_ReturnsAlternateDescription()
+    {
+        Assert.Equal("US$", Currency.USD.GetAlternateDescription());
     }
 
-    [Theory]
-    [InlineData(null, "Test Currency", 2)]
-    [InlineData("TEST", null, 2)]
-    [InlineData("TEST", "Test Currency", -1)]
-    public void Constructor_InvalidInput_ThrowsArgumentException(string? code, string? description, int precision)
-    {
-        Assert.Throws<ArgumentException>(() => new Currency(code!, description!, precision));
-    }
+    #endregion
 
+    #region Test Methods (FromCode)
+    
     [Fact]
     public void FromCode_ValidCode_ReturnsCurrency()
     {
-        Currency? result = Currency.FromCode("USD");
+        Currency? result = CurrencyExtensions.FromCode("USD");
 
         Assert.NotNull(result);
-        Assert.Equal("USD", result.Code);
+        Assert.Equal(Currency.USD, result);
     }
 
     [Fact]
     public void FromCode_InvalidCode_ReturnsNull()
     {
-        Currency? result = Currency.FromCode("INVALID");
+        Currency? result = CurrencyExtensions.FromCode("INVALID");
 
         Assert.Null(result);
     }
     
+    #endregion
+
+    #region Test Methods (TryParse)
+
     [Fact]
     public void TryParse_ValidCode_ReturnsTrueAndCurrency()
     {
-        bool success = Currency.TryParse("AUD", out var currency);
+        bool success = CurrencyExtensions.TryParse("AUD", out var currency);
 
         Assert.True(success);
         Assert.NotNull(currency);
-        Assert.Equal("AUD", currency.Code);
+        Assert.Equal(Currency.AUD, currency);
     }
 
     [Fact]
     public void TryParse_InvalidCode_ReturnsFalseAndNull()
     {
-        bool success = Currency.TryParse("INVALID", out var currency);
+        bool success = CurrencyExtensions.TryParse("INVALID", out var currency);
 
         Assert.False(success);
         Assert.Null(currency);
     }
+    
+    #endregion
+
+    #region Test Methods (Equals)
 
     [Fact]
     public void Equals_SameCode_ReturnsTrue()
     {
         Currency currency1 = Currency.USD;
-        Currency? currency2 = Currency.FromCode("USD");
+        Currency? currency2 = CurrencyExtensions.FromCode("USD");
 
         Assert.True(currency1.Equals(currency2));
     }
+    
+    #endregion
 
-    [Fact]
-    public void Equals_DifferentCode_ReturnsFalse()
-    {
-        Currency currency1 = Currency.USD;
-        Currency currency2 = Currency.EUR;
-
-        Assert.False(currency1.Equals(currency2));
-    }
+    #region Test Methods (GetHashCode)
 
     [Fact]
     public void GetHashCode_SameCode_ReturnsSameHash()
     {
         Currency currency1 = Currency.USD;
-        Currency? currency2 = Currency.FromCode("USD");
+        Currency? currency2 = CurrencyExtensions.FromCode("USD");
 
         Assert.NotNull(currency2);
         Assert.Equal(currency1.GetHashCode(), currency2.GetHashCode());
     }
 
+    #endregion
+    
+    #region Test Methods (GetItems)
+
     [Fact]
     public void GetItems_WhenCalled_ReturnsAllCurrencies()
     {
-        List<Currency> items = Currency.GetItems().ToList();
+        List<Currency> items = CurrencyExtensions.GetItems().ToList();
 
         Assert.NotEmpty(items);
-        Assert.Contains(items, x => x.Code == "USD");
-        Assert.Contains(items, x => x.Code == "EUR");
+        Assert.Contains(items, x => x == Currency.USD);
+        Assert.Contains(items, x => x == Currency.EUR);
     }
+    
+    #endregion
 }

@@ -1,3 +1,5 @@
+using Barchart.Common.Utilities;
+
 namespace Barchart.Common.Core;
 
 /// <summary>
@@ -75,7 +77,7 @@ public class CurrencyConverter
 
         if (!_exchangeRates.TryGetValue(pair, out float rate))
         {
-            throw new InvalidOperationException($"Exchange rate from {source.Code} to {target.Code} is not available.");
+            throw new InvalidOperationException($"Exchange rate from {source} to {target} is not available.");
         }
 
         return rate;
@@ -124,7 +126,7 @@ public class CurrencyConverter
 
         if (!_exchangeRates.TryGetValue(pair, out float rate))
         {
-            throw new InvalidOperationException($"Exchange rate from {source.Code} to {target.Code} is not available.");
+            throw new InvalidOperationException($"Exchange rate from {source} to {target} is not available.");
         }
 
         return amount * rate;
@@ -152,52 +154,6 @@ public class CurrencyConverter
 
         CurrencyExchangePair pair = new(source, target);
         return _exchangeRates.ContainsKey(pair);
-    }
-
-    #endregion
-
-    #region Nested Types
-
-    /// <summary>
-    ///     Represents a pair of currencies for which an exchange rate is defined.
-    /// </summary>
-    private sealed class CurrencyExchangePair : IEquatable<CurrencyExchangePair>
-    {
-        #region Properties
-        
-        public Currency Source { get; }
-        public Currency Target { get; }
-        
-        #endregion
-
-        #region Constructor(s)
-
-        public CurrencyExchangePair(Currency source, Currency target)
-        {
-            Source = source;
-            Target = target;
-        }
-
-        #endregion
-
-        #region Methods
-        
-        public override bool Equals(object? obj)
-        {
-            return Equals(obj as CurrencyExchangePair);
-        }
-
-        public bool Equals(CurrencyExchangePair? other)
-        {
-            return other != null && Source.Equals(other.Source) && Target.Equals(other.Target);
-        }
-
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(Source, Target);
-        }
-        
-        #endregion
     }
 
     #endregion

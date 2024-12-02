@@ -12,8 +12,8 @@ public class CurrencyConverterTests
     
     ITestOutputHelper _testOutputHelper;
   
-    private readonly Currency _source;
-    private readonly Currency _target;
+    private readonly Currency _source = Currency.USD;
+    private readonly Currency _target = Currency.EUR;
     
     private const float TOLERANCE = 0.0001f;
     
@@ -24,9 +24,6 @@ public class CurrencyConverterTests
     public CurrencyConverterTests(ITestOutputHelper testOutputHelper)
     {
         _testOutputHelper = testOutputHelper;
-     
-        _source = new Currency("USD", "US Dollar", 2, "US$"); 
-        _target = new Currency("EUR", "Euro", 2, "EUR");
     }
     
     #endregion
