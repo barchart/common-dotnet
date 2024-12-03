@@ -5,13 +5,13 @@ namespace Barchart.Common.Core;
 /// </summary>
 public enum Currency
 {
-    AUD,
-    CAD,
-    CHF,
-    EUR,
-    GBP,
-    GBX,
-    HKD,
-    JPY,
-    USD
+    AUD = 0,
+    CAD = 1,
+    CHF = 2,
+    EUR = 3,
+    GBP = 4,
+    GBX = 5,
+    HKD = 6,
+    JPY = 7,
+    USD = 8
 }
