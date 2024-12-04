@@ -20,6 +20,28 @@ To install the package, use the following command:
 dotnet add package Barchart.Common
 ```
 
+## Release Process
+
+To create a new release use the following steps:
+
+* Ensure dependencies are up-to-date.
+* Create a new file in the ```.releases``` folder and commit it.
+* Bump the software version in the ```Barchart.Common.csproj``` file and tag the repository.
+* Create a [GitHub Release](https://github.com/barchart/common-dotnet/releases) based on the tag and add the release notes.
+* Finally, publish the packages to NuGet.
+
+**Publishing to NuGet**
+
+* To publish the package to NuGet you need to log in to the Barchart QA virtual machine.
+* Open the powershell and navigate to the ```/desktop``` folder.
+* Run the following command to publish the package:
+
+```powershell
+
+.\common-dotnet.ps1
+
+```
+
 ## License
 
 This software is available for use under the MIT license.
