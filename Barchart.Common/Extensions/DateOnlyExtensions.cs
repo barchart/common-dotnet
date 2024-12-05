@@ -8,7 +8,7 @@ public static class DateOnlyExtensions
     #region Methods
 
     /// <summary>
-    ///     Gets the number of days since the epoch.
+    ///     Gets the number of days since the epoch (0001-01-01).
     /// </summary>
     /// <param name="date">
     ///     The date to get the number of days since the epoch for.
