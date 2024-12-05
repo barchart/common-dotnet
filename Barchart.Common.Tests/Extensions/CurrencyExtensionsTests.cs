@@ -5,9 +5,9 @@ using Barchart.Common.Extensions;
 
 #endregion
 
-namespace Barchart.Common.Tests.Core;
+namespace Barchart.Common.Tests.Extensions;
 
-public class CurrencyTests
+public class CurrencyExtensionsTests
 {
     #region Fields
     
@@ -17,7 +17,7 @@ public class CurrencyTests
 
     #region Constructor(s)
     
-    public CurrencyTests(ITestOutputHelper testOutputHelper)
+    public CurrencyExtensionsTests(ITestOutputHelper testOutputHelper)
     {
         _testOutputHelper = testOutputHelper;
     }
