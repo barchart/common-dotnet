@@ -1,10 +1,13 @@
 namespace Barchart.Common.Core;
 
+/// <summary>
+///     An object that has an end-of-life process with an action to execute when disposed.
+/// </summary>
 public class DisposableAction : Disposable
 {
     #region Fields
     
-    private Action? _disposeAction;
+    private readonly Action _disposeAction;
     
     #endregion
 
@@ -12,12 +15,7 @@ public class DisposableAction : Disposable
 
     public DisposableAction(Action disposeAction)
     {
-        _disposeAction = disposeAction;
-        
-        if (_disposeAction == null)
-        {
-            throw new ArgumentNullException(nameof(disposeAction));
-        }
+        _disposeAction = disposeAction ?? throw new ArgumentNullException(nameof(disposeAction));
     }
 
     #endregion
@@ -26,8 +24,7 @@ public class DisposableAction : Disposable
 
     protected override void OnDispose()
     {
-        _disposeAction?.Invoke();
-        _disposeAction = null;
+        _disposeAction.Invoke();
     }
     
     #endregion

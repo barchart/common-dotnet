@@ -35,9 +35,6 @@ public class CurrencyConverter
     /// </exception>
     public void SetExchangeRate(Currency source, Currency target, float rate)
     {
-        if (source == null) throw new ArgumentNullException(nameof(source));
-        if (target == null) throw new ArgumentNullException(nameof(target));
-
         if (rate <= 0)
         {
             throw new ArgumentException("Exchange rate must be a positive number.", nameof(rate));
@@ -70,9 +67,6 @@ public class CurrencyConverter
     /// </exception>
     public float GetExchangeRate(Currency source, Currency target)
     {
-        if (source == null) throw new ArgumentNullException(nameof(source));
-        if (target == null) throw new ArgumentNullException(nameof(target));
-
         CurrencyExchangePair pair = new(source, target);
 
         if (!_exchangeRates.TryGetValue(pair, out float rate))
@@ -109,9 +103,6 @@ public class CurrencyConverter
     /// </exception>
     public float Convert(Currency source, Currency target, float amount)
     {
-        if (source == null) throw new ArgumentNullException(nameof(source));
-        if (target == null) throw new ArgumentNullException(nameof(target));
-
         if (amount < 0)
         {
             throw new ArgumentException("Amount must be a non-negative number.", nameof(amount));
@@ -149,9 +140,6 @@ public class CurrencyConverter
     /// </exception>
     public bool HasExchangeRate(Currency source, Currency target)
     {
-        if (source == null) throw new ArgumentNullException(nameof(source));
-        if (target == null) throw new ArgumentNullException(nameof(target));
-
         CurrencyExchangePair pair = new(source, target);
         return _exchangeRates.ContainsKey(pair);
     }

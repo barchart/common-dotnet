@@ -5,6 +5,8 @@ namespace Barchart.Common.Utilities;
 /// </summary>
 public class CurrencyInfo
 {
+    #region Properties
+    
     /// <summary>
     ///     The description of the currency.
     /// </summary>
@@ -20,10 +22,16 @@ public class CurrencyInfo
     /// </summary>
     public string AlternateDescription { get; }
 
+    #endregion
+
+    #region Constructor(s)
+    
     public CurrencyInfo(string description, int precision, string alternateDescription)
     {
         Description = description;
         Precision = precision;
         AlternateDescription = alternateDescription;
     }
+    #endregion
+
 }

@@ -80,7 +80,7 @@ public class CurrencyExtensionsTests
     [Fact]
     public void TryParse_ValidCode_ReturnsTrueAndCurrency()
     {
-        bool success = CurrencyExtensions.TryParse("AUD", out var currency);
+        bool success = CurrencyExtensions.TryParse("AUD", out Currency? currency);
 
         Assert.True(success);
         Assert.NotNull(currency);
@@ -90,7 +90,7 @@ public class CurrencyExtensionsTests
     [Fact]
     public void TryParse_InvalidCode_ReturnsFalseAndNull()
     {
-        bool success = CurrencyExtensions.TryParse("INVALID", out var currency);
+        bool success = CurrencyExtensions.TryParse("INVALID", out Currency? currency);
 
         Assert.False(success);
         Assert.Null(currency);

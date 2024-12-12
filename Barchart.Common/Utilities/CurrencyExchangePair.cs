@@ -1,4 +1,8 @@
+#region Using Statements
+
 using Barchart.Common.Core;
+
+#endregion
 
 namespace Barchart.Common.Utilities;
 

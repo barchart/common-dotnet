@@ -1,4 +1,8 @@
+#region Using Statements
+
 using Barchart.Common.Extensions;
+
+#endregion
 
 namespace Barchart.Common.Tests.Extensions;
 

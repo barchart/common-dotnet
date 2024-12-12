@@ -8,14 +8,18 @@ namespace Barchart.Common.Tests.Core;
 
 public class CurrencyConverterTests
 {
+    #region Constants
+    
+    private const float TOLERANCE = 0.0001f;
+    
+    #endregion
+        
     #region Fields
     
     ITestOutputHelper _testOutputHelper;
   
     private readonly Currency _source = Currency.USD;
     private readonly Currency _target = Currency.EUR;
-    
-    private const float TOLERANCE = 0.0001f;
     
     #endregion
 

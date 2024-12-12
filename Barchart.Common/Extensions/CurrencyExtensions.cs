@@ -1,10 +1,19 @@
+#region Using Statements
+
 using Barchart.Common.Core;
 using Barchart.Common.Utilities;
 
+#endregion
+
 namespace Barchart.Common.Extensions;
 
+/// <summary>
+///     Represents a currency.
+/// </summary>
 public static class CurrencyExtensions
 {
+    #region Fields
+    
     private static readonly Dictionary<Currency, CurrencyInfo> Currencies = new()
     {
         { Currency.AUD, new CurrencyInfo("Australian Dollar", 2, "AUD$") },
@@ -18,16 +27,47 @@ public static class CurrencyExtensions
         { Currency.USD, new CurrencyInfo("US Dollar", 2, "US$") }
     };
     
+    #endregion
+
+    #region Methods
+    
+    /// <summary>
+    ///     Retrieves the description for the specified <see cref="Currency"/>.
+    /// </summary>
+    /// <param name="currency">
+    ///     The <see cref="Currency"/> instance for which the description is requested.
+    /// </param>
+    /// <returns>
+    ///     A <see cref="string"/> representing the description of the specified currency.
+    /// </returns>
     public static string GetDescription(this Currency currency)
     {
         return Currencies[currency].Description;
     }
 
+    /// <summary>
+    ///     Retrieves the precision for the specified <see cref="Currency"/>
+    /// </summary>
+    /// <param name="currency">
+    ///     The <see cref="Currency"/> instance for which the precision is requested.
+    /// </param>
+    /// <returns>
+    ///     A <see cref="string"/> representing the precision of the specified currency.
+    /// </returns>
     public static int GetPrecision(this Currency currency)
     {
         return Currencies[currency].Precision;
     }
 
+    /// <summary>
+    ///     Retrieves the alternate description for the specified <see cref="Currency"/>.
+    /// </summary>
+    /// <param name="currency">
+    ///     The <see cref="Currency"/> instance for which the alternate description is requested.
+    /// </param>
+    /// <returns>
+    ///     A <see cref="string"/> representing the alternate description of the specified currency.
+    /// </returns>
     public static string GetAlternateDescription(this Currency currency)
     {
         return Currencies[currency].AlternateDescription;
@@ -44,7 +84,7 @@ public static class CurrencyExtensions
     /// </returns>
     public static Currency? FromCode(string code)
     {
-        return Enum.TryParse<Currency>(code, true, out var currency) ? currency : null;
+        return Enum.TryParse(code, true, out Currency currency) ? currency : null;
     }
 
     /// <summary>
@@ -72,7 +112,7 @@ public static class CurrencyExtensions
     /// </returns>
     public static bool TryParse(string code, out Currency? currency)
     {
-        if (Enum.TryParse<Currency>(code, true, out var parsedCurrency))
+        if (Enum.TryParse(code, true, out Currency parsedCurrency))
         {
             currency = parsedCurrency;
             return true;
@@ -81,4 +121,6 @@ public static class CurrencyExtensions
         currency = null;
         return false;
     }
+    
+    #endregion
 }
