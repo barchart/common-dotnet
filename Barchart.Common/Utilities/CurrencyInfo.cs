@@ -28,6 +28,9 @@ public class CurrencyInfo
     
     public CurrencyInfo(string description, int precision, string alternateDescription)
     {
+        ArgumentException.ThrowIfNullOrEmpty(description);
+        ArgumentException.ThrowIfNullOrEmpty(alternateDescription);
+        
         Description = description;
         Precision = precision;
         AlternateDescription = alternateDescription;

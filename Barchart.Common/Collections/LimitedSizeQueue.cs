@@ -18,6 +18,11 @@ public class LimitedSizeQueue<TElement> : Queue<TElement>
 
     public LimitedSizeQueue(int limit)
     {
+        if (limit <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(limit), "The limit must be greater than zero.");
+        }
+        
         _limit = limit;
     }
 

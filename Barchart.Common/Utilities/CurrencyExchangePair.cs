@@ -36,12 +36,7 @@ public sealed class CurrencyExchangePair : IEquatable<CurrencyExchangePair>
     #endregion
 
     #region Methods
-        
-    public override bool Equals(object? obj)
-    {
-        return Equals(obj as CurrencyExchangePair);
-    }
-
+    
     public bool Equals(CurrencyExchangePair? other)
     {
         return other != null && Source.Equals(other.Source) && Target.Equals(other.Target);

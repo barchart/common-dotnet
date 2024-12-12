@@ -15,7 +15,9 @@ public class DisposableAction : Disposable
 
     public DisposableAction(Action disposeAction)
     {
-        _disposeAction = disposeAction ?? throw new ArgumentNullException(nameof(disposeAction));
+        ArgumentNullException.ThrowIfNull(disposeAction, nameof(disposeAction));
+        
+        _disposeAction = disposeAction;
     }
 
     #endregion

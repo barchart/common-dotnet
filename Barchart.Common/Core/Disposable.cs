@@ -54,6 +54,8 @@ public class Disposable : IDisposable
     /// </returns>
     public static Disposable FromAction(Action disposeAction)
     {
+        ArgumentNullException.ThrowIfNull(disposeAction, nameof(disposeAction));
+        
         return new DisposableAction(disposeAction);
     }
 

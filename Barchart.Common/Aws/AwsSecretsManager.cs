@@ -31,6 +31,8 @@ public class AwsSecretsManager
     /// </param>
     public AwsSecretsManager(IAmazonSecretsManager secretsManager)
     {
+        ArgumentNullException.ThrowIfNull(secretsManager, nameof(secretsManager));
+        
         _secretsManager = secretsManager;
     }
     

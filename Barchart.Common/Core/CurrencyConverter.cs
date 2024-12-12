@@ -1,4 +1,8 @@
+#region Using Statements
+
 using Barchart.Common.Utilities;
+
+#endregion
 
 namespace Barchart.Common.Core;
 
@@ -27,9 +31,6 @@ public class CurrencyConverter
     /// <param name="rate">
     ///     The exchange rate from the source to the target currency.
     /// </param>
-    /// <exception cref="ArgumentNullException">
-    ///     <paramref name="source"/> or <paramref name="target"/> is <see langword="null"/>.
-    /// </exception>
     /// <exception cref="ArgumentException">
     ///     <paramref name="rate"/> is not a positive number.
     /// </exception>
@@ -59,9 +60,6 @@ public class CurrencyConverter
     /// <returns>
     ///     The exchange rate from the source to the target currency.
     /// </returns>
-    /// <exception cref="ArgumentNullException">
-    ///     <paramref name="source"/> or <paramref name="target"/> is <see langword="null"/>.
-    /// </exception>
     /// <exception cref="InvalidOperationException">
     ///     The exchange rate between the specified currencies is not available.
     /// </exception>
@@ -92,9 +90,6 @@ public class CurrencyConverter
     /// <returns>
     ///     The amount in the target currency.
     /// </returns>
-    /// <exception cref="ArgumentNullException">
-    ///     <paramref name="source"/> or <paramref name="target"/> is <see langword="null"/>.
-    /// </exception>
     /// <exception cref="ArgumentException">
     ///     <paramref name="amount"/> is not a positive number.
     /// </exception>
@@ -135,9 +130,6 @@ public class CurrencyConverter
     /// <returns>
     ///     True if an exchange rate exists, otherwise false.
     /// </returns>
-    /// <exception cref="ArgumentNullException">
-    ///     <paramref name="source"/> or <paramref name="target"/> is <see langword="null"/>.
-    /// </exception>
     public bool HasExchangeRate(Currency source, Currency target)
     {
         CurrencyExchangePair pair = new(source, target);
