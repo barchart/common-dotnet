@@ -3,24 +3,24 @@ namespace Barchart.Common.Utilities;
 /// <summary>
 ///     Class representing currency information.
 /// </summary>
-public class CurrencyInfo
+internal class CurrencyInfo
 {
     #region Properties
     
     /// <summary>
     ///     The description of the currency.
     /// </summary>
-    public string Description { get; }
+    internal string Description { get; }
     
     /// <summary>
     ///     The precision of the currency.
     /// </summary>
-    public int Precision { get; }
+    internal int Precision { get; }
     
     /// <summary>
     ///     The alternate description of the currency.
     /// </summary>
-    public string AlternateDescription { get; }
+    internal string AlternateDescription { get; }
 
     #endregion
 
@@ -41,7 +41,7 @@ public class CurrencyInfo
     /// <exception cref="ArgumentException">
     ///     Thrown when <paramref name="description"/> or <paramref name="alternateDescription"/> is <see langword="null"/> or empty.
     /// </exception>
-    public CurrencyInfo(string description, int precision, string alternateDescription)
+    internal CurrencyInfo(string description, int precision, string alternateDescription)
     {
         ArgumentException.ThrowIfNullOrEmpty(description);
         ArgumentException.ThrowIfNullOrEmpty(alternateDescription);
@@ -50,6 +50,6 @@ public class CurrencyInfo
         Precision = precision;
         AlternateDescription = alternateDescription;
     }
+    
     #endregion
-
 }

@@ -9,19 +9,19 @@ namespace Barchart.Common.Utilities;
 /// <summary>
 ///     Represents a pair of currencies for which an exchange rate is defined.
 /// </summary>
-public sealed class CurrencyExchangePair : IEquatable<CurrencyExchangePair>
+internal class CurrencyExchangePair : IEquatable<CurrencyExchangePair>
 {
     #region Properties
         
     /// <summary>
     ///     The source currency.
     /// </summary>
-    public Currency Source { get; }
+    internal Currency Source { get; }
     
     /// <summary>
     ///     The target currency.
     /// </summary>
-    public Currency Target { get; }
+    internal Currency Target { get; }
         
     #endregion
 
@@ -39,7 +39,7 @@ public sealed class CurrencyExchangePair : IEquatable<CurrencyExchangePair>
     ///<exception cref="ArgumentNullException">
     ///     Thrown when <paramref name="source"/> or <paramref name="target"/> is <see langword="null"/>.
     /// </exception>
-    public CurrencyExchangePair(Currency source, Currency target)
+    internal CurrencyExchangePair(Currency source, Currency target)
     {
         ArgumentNullException.ThrowIfNull(source, nameof(source));
         ArgumentNullException.ThrowIfNull(target, nameof(target));
