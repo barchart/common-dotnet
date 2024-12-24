@@ -8,9 +8,12 @@ A _public_ library of .NET utilities.
 
 ## Features
 
-- **AWS**: Utilities for working with AWS services.
+- **AWS**: Utilities to support communication with the AWS services.
 - **Collections**: Enhanced data structures for working with collections.
-- **Core**: Core utilities for working with .NET framework.
+- **Core**: Core classes providing various functionalities.
+- **Extensions**: Extensions used to extend the functionality of the data types.
+- **Interfaces**: Common interfaces meant to be implemented by other classes to provide a common functionalities.
+- **Utilities**: Helper classes used throughout the library.
 
 ## Installation
 
