@@ -24,12 +24,13 @@
         <Configurations>Debug;Release;Publish</Configurations>
         <Copyright>Copyright © 2024 Barchart.com, Inc.</Copyright>
         <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="AWSSDK.SecretsManager" Version="4.0.0-preview.4" />
+        <PackageReference Include="AWSSDK.SecretsManager" Version="4.0.0-preview.4" />
     </ItemGroup>
-    
+
     <PropertyGroup>
         <TargetsTriggeredByCompilation>Sign</TargetsTriggeredByCompilation>
     </PropertyGroup>
@@ -39,7 +40,7 @@
             <Pack>True</Pack>
         </None>
     </ItemGroup>
-    
+
     <ItemGroup>
         <None Include="..\BarchartLogo.png" PackagePath="">
             <Pack>True</Pack>
