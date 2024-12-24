@@ -1,6 +1,7 @@
 #region Using Statements
 
 using Barchart.Common.Core;
+using Barchart.Common.Core.Exceptions;
 
 #endregion
 
@@ -48,12 +49,12 @@ public class CurrencyConverterTests
     }
     
     [Fact]
-    public void SetExchangeRate_ZeroRate_ThrowsArgumentException()
+    public void SetExchangeRate_ZeroRate_ThrowsInvalidExchangeRateException()
     {
         CurrencyConverter converter = new();
         float rate = 0f;
 
-        Assert.Throws<ArgumentException>(() => converter.SetExchangeRate(_source, _target, rate));
+        Assert.Throws<InvalidExchangeRateException>(() => converter.SetExchangeRate(_source, _target, rate));
     }
     
     #endregion
@@ -61,11 +62,11 @@ public class CurrencyConverterTests
     #region TestMethods (GetExchangeRate)
 
     [Fact]
-    public void GetExchangeRate_InvalidData_ThrowsInvalidOperationException()
+    public void GetExchangeRate_InvalidData_ThrowsExchangeRateNotFoundException()
     {
         CurrencyConverter converter = new();
         
-        Assert.Throws<InvalidOperationException>(() => converter.GetExchangeRate(_source, _target));
+        Assert.Throws<ExchangeRateNotFoundException>(() => converter.GetExchangeRate(_source, _target));
     }
     
     [Fact]
