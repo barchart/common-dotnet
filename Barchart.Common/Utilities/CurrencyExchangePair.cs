@@ -27,6 +27,18 @@ public sealed class CurrencyExchangePair : IEquatable<CurrencyExchangePair>
 
     #region Constructor(s)
 
+    /// <summary>
+    ///     Initializes a new instance of the <see cref="CurrencyExchangePair"/> class.
+    /// </summary>
+    /// <param name="source">
+    ///     The source currency.
+    /// </param>
+    /// <param name="target">
+    ///     The target currency.
+    /// </param>
+    ///<exception cref="ArgumentNullException">
+    ///     Thrown when <paramref name="source"/> or <paramref name="target"/> is <see langword="null"/>.
+    /// </exception>
     public CurrencyExchangePair(Currency source, Currency target)
     {
         ArgumentNullException.ThrowIfNull(source, nameof(source));
@@ -40,11 +52,13 @@ public sealed class CurrencyExchangePair : IEquatable<CurrencyExchangePair>
 
     #region Methods
     
+    /// <inheritdoc />
     public bool Equals(CurrencyExchangePair? other)
     {
         return other != null && Source.Equals(other.Source) && Target.Equals(other.Target);
     }
 
+    /// <inheritdoc />
     public override int GetHashCode()
     {
         return HashCode.Combine(Source, Target);

@@ -1,5 +1,6 @@
 #region Using Statements
 
+using Barchart.Common.Core.Exceptions;
 using Barchart.Common.Utilities;
 
 #endregion
@@ -31,14 +32,14 @@ public class CurrencyConverter
     /// <param name="rate">
     ///     The exchange rate from the source to the target currency.
     /// </param>
-    /// <exception cref="ArgumentException">
+    /// <exception cref="InvalidExchangeRateException">
     ///     Thrown when the <paramref name="rate"/> parameter is not a positive number.
     /// </exception>
     public void SetExchangeRate(Currency source, Currency target, float rate)
     {
         if (rate <= 0)
         {
-            throw new ArgumentException("Exchange rate must be a positive number.", nameof(rate));
+            throw new InvalidExchangeRateException(rate);
         }
         
         CurrencyExchangePair pair = new(source, target);
@@ -60,7 +61,7 @@ public class CurrencyConverter
     /// <returns>
     ///     The exchange rate from the source to the target currency.
     /// </returns>
-    /// <exception cref="InvalidOperationException">
+    /// <exception cref="ExchangeRateNotFoundException">
     ///     Thrown when the exchange rate between the specified currencies is not available.
     /// </exception>
     public float GetExchangeRate(Currency source, Currency target)
@@ -69,7 +70,7 @@ public class CurrencyConverter
 
         if (!_exchangeRates.TryGetValue(pair, out float rate))
         {
-            throw new InvalidOperationException($"Exchange rate from {source} to {target} is not available.");
+            throw new ExchangeRateNotFoundException(source, target);
         }
 
         return rate;
@@ -90,17 +91,17 @@ public class CurrencyConverter
     /// <returns>
     ///     The amount in the target currency.
     /// </returns>
-    /// <exception cref="ArgumentException">
+    /// <exception cref="InvalidAmountException">
     ///     Thrown when the <paramref name="amount"/> parameter is not a positive number.
     /// </exception>
-    /// <exception cref="InvalidOperationException">
+    /// <exception cref="ExchangeRateNotFoundException">
     ///     Thrown when the exchange rate between the specified currencies is not available.
     /// </exception>
     public float Convert(Currency source, Currency target, float amount)
     {
         if (amount < 0)
         {
-            throw new ArgumentException("Amount must be a non-negative number.", nameof(amount));
+            throw new InvalidAmountException(amount);
         }
 
         if (Equals(source, target))
@@ -112,7 +113,7 @@ public class CurrencyConverter
 
         if (!_exchangeRates.TryGetValue(pair, out float rate))
         {
-            throw new InvalidOperationException($"Exchange rate from {source} to {target} is not available.");
+            throw new ExchangeRateNotFoundException(source, target);
         }
 
         return amount * rate;

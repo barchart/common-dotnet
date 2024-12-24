@@ -5,6 +5,7 @@ using Amazon.SecretsManager;
 using Amazon.SecretsManager.Model;
 
 using System.Text.Json;
+using Barchart.Common.Aws.Exceptions;
 
 #endregion
 
@@ -63,8 +64,16 @@ public class AwsSecretsManager
     /// <returns>
     ///     The value of the secret.
     /// </returns>
+    /// <exception cref="ArgumentException">
+    ///     Thrown when the <paramref name="secretName"/> parameter is <see langword="null"/> or whitespace.
+    /// </exception>
+    /// <exception cref="SecretNotFoundException">
+    ///     Thrown when the secret cannot be found.
+    /// </exception>
     public async Task<string> GetSecret(string secretName)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(secretName, nameof(secretName));
+        
         GetSecretValueRequest request = new()
         {
             SecretId = secretName,
@@ -81,7 +90,7 @@ public class AwsSecretsManager
         {
             Console.WriteLine($"Error retrieving secret: {ex.Message}");
             
-            throw;
+            throw new SecretNotFoundException(secretName);
         }
 
         return response.SecretString;
@@ -99,11 +108,19 @@ public class AwsSecretsManager
     /// <returns>
     ///     The value of the secret.
     /// </returns>
-    /// <exception cref="InvalidOperationException">
+    /// <exception cref="ArgumentException">
+    ///     Thrown when the <paramref name="secretName"/> parameter is <see langword="null"/> or whitespace.
+    /// </exception>
+    /// <exception cref="SecretNotFoundException">
+    ///     Thrown when the secret cannot be found.
+    /// </exception>
+    /// <exception cref="SecretDeserializationException">
     ///     Thrown when the secret value cannot be deserialized.
     /// </exception>
     public async Task<T> GetSecret<T>(string secretName)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(secretName, nameof(secretName));
+
         GetSecretValueRequest request = new()
         {
             SecretId = secretName,
@@ -120,14 +137,14 @@ public class AwsSecretsManager
         {
             Console.WriteLine($"Error retrieving secret: {ex.Message}");
             
-            throw;
+            throw new SecretNotFoundException(secretName);
         }
         
         T? deserialized = JsonSerializer.Deserialize<T>(response.SecretString);
         
         if (deserialized == null)
         {
-            throw new InvalidOperationException("Failed to deserialize secret.");
+            throw new SecretDeserializationException(secretName);
         }
 
         return deserialized;

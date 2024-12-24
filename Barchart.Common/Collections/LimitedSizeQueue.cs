@@ -1,3 +1,9 @@
+#region Using Statements
+
+using Barchart.Common.Collections.Exceptions;
+
+#endregion
+
 namespace Barchart.Common.Collections;
 
 /// <summary>
@@ -16,11 +22,20 @@ public class LimitedSizeQueue<TElement> : Queue<TElement>
 
     #region Constructor(s)
 
+    /// <summary>
+    ///     Initializes a new instance of the <see cref="LimitedSizeQueue{TElement}"/> class with the specified limit.
+    /// </summary>
+    /// <param name="limit">
+    ///     The maximum number of elements that the queue can contain.
+    /// </param>
+    /// <exception cref="InvalidQueueLimitException">
+    ///     Thrown when the <paramref name="limit"/> parameter is less than or equal to zero.
+    /// </exception>
     public LimitedSizeQueue(int limit)
     {
         if (limit <= 0)
         {
-            throw new ArgumentOutOfRangeException(nameof(limit), "The limit must be greater than zero.");
+            throw new InvalidQueueLimitException(limit);
         }
         
         _limit = limit;

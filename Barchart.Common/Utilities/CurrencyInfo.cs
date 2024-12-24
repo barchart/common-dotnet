@@ -26,6 +26,21 @@ public class CurrencyInfo
 
     #region Constructor(s)
     
+    /// <summary>
+    ///     Initializes a new instance of the <see cref="CurrencyInfo"/> class.
+    /// </summary>
+    /// <param name="description">
+    ///     The description of the currency.
+    /// </param>
+    /// <param name="precision">
+    ///     The precision of the currency.
+    /// </param>
+    /// <param name="alternateDescription">
+    ///     The alternate description of the currency.
+    /// </param>
+    /// <exception cref="ArgumentException">
+    ///     Thrown when <paramref name="description"/> or <paramref name="alternateDescription"/> is <see langword="null"/> or empty.
+    /// </exception>
     public CurrencyInfo(string description, int precision, string alternateDescription)
     {
         ArgumentException.ThrowIfNullOrEmpty(description);

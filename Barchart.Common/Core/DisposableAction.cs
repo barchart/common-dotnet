@@ -13,6 +13,15 @@ public class DisposableAction : Disposable
 
     #region Constructor(s)
 
+    /// <summary>
+    ///     Initializes a new instance of the <see cref="DisposableAction"/> class.
+    /// </summary>
+    /// <param name="disposeAction">
+    ///     The action to execute when the object is disposed.
+    /// </param>
+    /// <exception cref="ArgumentNullException">
+    ///     Thrown when the <paramref name="disposeAction"/> parameter is <see langword="null"/>.
+    /// </exception>
     public DisposableAction(Action disposeAction)
     {
         ArgumentNullException.ThrowIfNull(disposeAction, nameof(disposeAction));
