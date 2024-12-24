@@ -17,9 +17,8 @@ public class Disposable : IDisposable
     #region Methods
 
     /// <summary>
-    ///     Invokes end-of-life logic. Once this function has been
-    ///     invoked, further interaction with the object is not
-    ///     recommended.
+    ///     Invokes end-of-life logic. Once this function has been invoked,
+    ///     further interaction with the object is not recommended.
     /// </summary>
     public void Dispose()
     {
@@ -52,6 +51,9 @@ public class Disposable : IDisposable
     /// <returns>
     ///     A <see cref="Disposable"/> object.
     /// </returns>
+    /// <exception cref="ArgumentNullException">
+    ///     Thrown when the <paramref name="disposeAction"/> parameter is <see langword="null"/>.
+    /// </exception>
     public static Disposable FromAction(Action disposeAction)
     {
         ArgumentNullException.ThrowIfNull(disposeAction, nameof(disposeAction));

@@ -32,7 +32,7 @@ public class CurrencyConverter
     ///     The exchange rate from the source to the target currency.
     /// </param>
     /// <exception cref="ArgumentException">
-    ///     <paramref name="rate"/> is not a positive number.
+    ///     Thrown when the <paramref name="rate"/> parameter is not a positive number.
     /// </exception>
     public void SetExchangeRate(Currency source, Currency target, float rate)
     {
@@ -61,7 +61,7 @@ public class CurrencyConverter
     ///     The exchange rate from the source to the target currency.
     /// </returns>
     /// <exception cref="InvalidOperationException">
-    ///     The exchange rate between the specified currencies is not available.
+    ///     Thrown when the exchange rate between the specified currencies is not available.
     /// </exception>
     public float GetExchangeRate(Currency source, Currency target)
     {
@@ -91,10 +91,10 @@ public class CurrencyConverter
     ///     The amount in the target currency.
     /// </returns>
     /// <exception cref="ArgumentException">
-    ///     <paramref name="amount"/> is not a positive number.
+    ///     Thrown when the <paramref name="amount"/> parameter is not a positive number.
     /// </exception>
     /// <exception cref="InvalidOperationException">
-    ///     The exchange rate between the specified currencies is not available.
+    ///     Thrown when the exchange rate between the specified currencies is not available.
     /// </exception>
     public float Convert(Currency source, Currency target, float amount)
     {

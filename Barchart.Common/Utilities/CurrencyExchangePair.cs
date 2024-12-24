@@ -29,6 +29,9 @@ public sealed class CurrencyExchangePair : IEquatable<CurrencyExchangePair>
 
     public CurrencyExchangePair(Currency source, Currency target)
     {
+        ArgumentNullException.ThrowIfNull(source, nameof(source));
+        ArgumentNullException.ThrowIfNull(target, nameof(target));
+        
         Source = source;
         Target = target;
     }

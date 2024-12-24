@@ -29,6 +29,9 @@ public class AwsSecretsManager
     /// <param name="secretsManager">
     ///     The AWS Secrets Manager client to use.
     /// </param>
+    /// <exception cref="ArgumentNullException">
+    ///     Thrown when the <paramref name="secretsManager"/> parameter is <see langword="null"/>.
+    /// </exception>
     public AwsSecretsManager(IAmazonSecretsManager secretsManager)
     {
         ArgumentNullException.ThrowIfNull(secretsManager, nameof(secretsManager));
