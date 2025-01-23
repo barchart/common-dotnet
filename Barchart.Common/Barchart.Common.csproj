@@ -28,7 +28,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AWSSDK.SecretsManager" Version="4.0.0-preview.4" />
+        <PackageReference Include="AWSSDK.SecretsManager" Version="4.0.0-preview.5" />
     </ItemGroup>
 
     <PropertyGroup>
