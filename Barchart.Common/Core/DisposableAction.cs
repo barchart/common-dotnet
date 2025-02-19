@@ -33,6 +33,7 @@ public class DisposableAction : Disposable
 
     #region Methods
 
+    /// <inheritdoc />
     protected override void OnDispose()
     {
         _disposeAction.Invoke();
