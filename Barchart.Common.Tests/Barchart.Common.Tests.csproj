@@ -6,6 +6,7 @@
     <RootNamespace>Barchart.Common.Tests</RootNamespace>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Configurations>Debug;Release;Publish</Configurations>
     <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
