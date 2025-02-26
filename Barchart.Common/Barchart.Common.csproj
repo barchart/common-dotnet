@@ -29,7 +29,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AWSSDK.SecretsManager" Version="4.0.0-preview.6" />
+        <PackageReference Include="AWSSDK.SecretsManager" Version="4.0.0-preview.8" />
     </ItemGroup>
 
     <PropertyGroup>
