@@ -13,15 +13,9 @@ internal class CurrencyExchangePair : IEquatable<CurrencyExchangePair>
 {
     #region Properties
         
-    /// <summary>
-    ///     The source currency.
-    /// </summary>
-    internal Currency Source { get; }
+    private Currency Source { get; }
     
-    /// <summary>
-    ///     The target currency.
-    /// </summary>
-    internal Currency Target { get; }
+    private Currency Target { get; }
         
     #endregion
 
@@ -41,9 +35,6 @@ internal class CurrencyExchangePair : IEquatable<CurrencyExchangePair>
     /// </exception>
     internal CurrencyExchangePair(Currency source, Currency target)
     {
-        ArgumentNullException.ThrowIfNull(source, nameof(source));
-        ArgumentNullException.ThrowIfNull(target, nameof(target));
-        
         Source = source;
         Target = target;
     }
