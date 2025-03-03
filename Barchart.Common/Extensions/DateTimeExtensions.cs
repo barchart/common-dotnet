@@ -5,6 +5,8 @@ namespace Barchart.Common.Extensions;
 /// </summary>
 public static class DateTimeExtensions
 {
+    #region Methods
+
     /// <summary>
     ///     Gets the number of milliseconds since the epoch (1970-01-01).
     /// </summary>
@@ -20,4 +22,6 @@ public static class DateTimeExtensions
 
         return Convert.ToInt64(timeSpan.TotalMilliseconds);
     }
+    
+    #endregion
 }
