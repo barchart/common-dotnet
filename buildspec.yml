@@ -3,7 +3,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      dotnet: 9.0.200
+      dotnet: 9.0.100
 
   pre_build:
     commands:
