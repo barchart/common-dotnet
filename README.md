@@ -12,7 +12,7 @@ A _public_ library of .NET utilities.
 - **Collections**: Enhanced data structures for working with collections.
 - **Core**: Core classes providing various functionalities.
 - **Extensions**: Extensions used to extend the functionality of the data types.
-- **Interfaces**: Common interfaces meant to be implemented by other classes to provide a common functionalities.
+- **Schedulers**: Utilities to support scheduling tasks.
 
 ## Installation
 
