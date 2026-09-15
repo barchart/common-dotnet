@@ -13,7 +13,7 @@ public class InvalidExchangeRateException : ArgumentOutOfRangeException
     /// <param name="exchangeRate">
     ///     The exchange rate.
     /// </param>
-    public InvalidExchangeRateException(float exchangeRate) : base($"The exchange rate ({exchangeRate}) must be a positive number.")
+    public InvalidExchangeRateException(float exchangeRate) : base($"The exchange rate ({exchangeRate}) must be a finite positive number.")
     {
         
     }

@@ -33,11 +33,13 @@ public class CurrencyConverter
     ///     The exchange rate from the source to the target currency.
     /// </param>
     /// <exception cref="InvalidExchangeRateException">
-    ///     Thrown when the <paramref name="rate"/> parameter is not a positive number.
+    ///     Thrown when the <paramref name="rate"/> parameter is not a finite positive number.
     /// </exception>
     public void SetExchangeRate(Currency source, Currency target, float rate)
     {
-        if (rate <= 0)
+        float reverseRate = 1 / rate;
+
+        if (!float.IsFinite(rate) || rate <= 0 || !float.IsFinite(reverseRate))
         {
             throw new InvalidExchangeRateException(rate);
         }
@@ -46,7 +48,7 @@ public class CurrencyConverter
         CurrencyExchangePair reversePair = new(target, source);
 
         _exchangeRates[pair] = rate;
-        _exchangeRates[reversePair] = 1 / rate;
+        _exchangeRates[reversePair] = reverseRate;
     }
     
     /// <summary>
@@ -134,6 +136,7 @@ public class CurrencyConverter
     public bool HasExchangeRate(Currency source, Currency target)
     {
         CurrencyExchangePair pair = new(source, target);
+      
         return _exchangeRates.ContainsKey(pair);
     }
 
