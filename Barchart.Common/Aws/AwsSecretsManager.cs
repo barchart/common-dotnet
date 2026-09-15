@@ -4,8 +4,9 @@ using Amazon;
 using Amazon.SecretsManager;
 using Amazon.SecretsManager.Model;
 
-using System.Text.Json;
 using Barchart.Common.Aws.Exceptions;
+
+using System.Text.Json;
 
 #endregion
 
