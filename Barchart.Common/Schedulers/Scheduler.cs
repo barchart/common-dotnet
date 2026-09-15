@@ -12,7 +12,7 @@ namespace Barchart.Common.Schedulers;
 public static class Scheduler
 {
     #region Methods
-    
+
     /// <summary>
     ///     Schedules an action with exponential backoff.
     /// </summary>
@@ -31,16 +31,14 @@ public static class Scheduler
     /// <param name="failureCallback">
     ///     A callback that is called when the action fails.
     /// </param>
-    /// <param name="failureValue">
-    ///     A value that represents the failure.
-    /// </param>
     /// <param name="maxDelay">
     ///     A value that represents the maximum delay in milliseconds.
     /// </param>
     /// <exception cref="MaximumAttemptsException">
     ///     Thrown when the maximum number of attempts is reached.
     /// </exception>
-    public static async Task BackoffAsync(Func<Task> action, int initialDelay, string actionDescription, int maxAttempts, Action<int>? failureCallback, object? failureValue, int maxDelay)
+    public static async Task BackoffAsync(Func<Task> action, int initialDelay, string actionDescription,
+        int maxAttempts, Action<int>? failureCallback, int maxDelay)
     {
         int attempts = 0;
         int delay = initialDelay;
