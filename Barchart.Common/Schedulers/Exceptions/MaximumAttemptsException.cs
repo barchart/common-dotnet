@@ -13,7 +13,7 @@ public class MaximumAttemptsException : Exception
     /// <param name="actionDescription">
     ///     The description of the action.
     /// </param>
-    public MaximumAttemptsException(string actionDescription) : base($"Maximum attempts reached for {actionDescription}.")
+    public MaximumAttemptsException(string actionDescription) : base($"Maximum attempts reached for { actionDescription }.")
     {
         
     }

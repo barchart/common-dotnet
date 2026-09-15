@@ -50,19 +50,22 @@ public static class Scheduler
             try
             {
                 await action();
+                
                 break;
             }
             catch (Exception)
             {
                 attempts++;
+                
                 failureCallback?.Invoke(attempts);
 
                 if (maxAttempts > 0 && attempts >= maxAttempts)
                 {
-                    throw new MaximumAttemptsException($"Maximum attempts reached for {actionDescription}.");
+                    throw new MaximumAttemptsException(actionDescription);
                 }
 
                 await Task.Delay(delay);
+                
                 delay = Math.Min(delay * 2, maxDelay);
             }
         }
