@@ -32,6 +32,22 @@ public class DateTimeExtensionsTests
         
         Assert.Equal(0, dateTime.GetMillisecondsSinceUnixEpoch());
     }
+
+    [Fact]
+    public void GetMillisecondsSinceUnixEpoch_LocalUnixEpoch_IsZero()
+    {
+        DateTime dateTime = DateTime.UnixEpoch.ToLocalTime();
+
+        Assert.Equal(0, dateTime.GetMillisecondsSinceUnixEpoch());
+    }
+
+    [Fact]
+    public void GetMillisecondsSinceUnixEpoch_UnspecifiedUnixEpoch_IsZero()
+    {
+        DateTime dateTime = new(1970, 1, 1, 0, 0, 0, DateTimeKind.Unspecified);
+
+        Assert.Equal(0, dateTime.GetMillisecondsSinceUnixEpoch());
+    }
     
     [Fact]
     public void GetMillisecondsSinceUnixEpoch_DateTimeIsOneDayAfterUnixEpoch_IsEightySixThousandFourHundred()

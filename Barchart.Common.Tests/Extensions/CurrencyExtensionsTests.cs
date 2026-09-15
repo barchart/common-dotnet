@@ -72,6 +72,14 @@ public class CurrencyExtensionsTests
 
         Assert.Null(result);
     }
+
+    [Fact]
+    public void FromCode_UndefinedNumericCode_ReturnsNull()
+    {
+        Currency? result = CurrencyExtensions.FromCode("999");
+
+        Assert.Null(result);
+    }
     
     #endregion
 
@@ -94,6 +102,14 @@ public class CurrencyExtensionsTests
 
         Assert.False(success);
         Assert.Null(currency);
+    }
+
+    [Fact]
+    public void TryParse_UndefinedNumericCode_ReturnsFalseAndNull()
+    {
+        bool success = CurrencyExtensions.TryParse("999", out Currency? currency);
+
+        Assert.Equal((false, (Currency?)null), (success, currency));
     }
     
     #endregion

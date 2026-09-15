@@ -56,6 +56,30 @@ public class CurrencyConverterTests
 
         Assert.Throws<InvalidExchangeRateException>(() => converter.SetExchangeRate(_source, _target, rate));
     }
+
+    [Fact]
+    public void SetExchangeRate_NaNRate_ThrowsInvalidExchangeRateException()
+    {
+        CurrencyConverter converter = new();
+
+        Assert.Throws<InvalidExchangeRateException>(() => converter.SetExchangeRate(_source, _target, float.NaN));
+    }
+
+    [Fact]
+    public void SetExchangeRate_InfiniteRate_ThrowsInvalidExchangeRateException()
+    {
+        CurrencyConverter converter = new();
+
+        Assert.Throws<InvalidExchangeRateException>(() => converter.SetExchangeRate(_source, _target, float.PositiveInfinity));
+    }
+
+    [Fact]
+    public void SetExchangeRate_RateWithInfiniteReverseRate_ThrowsInvalidExchangeRateException()
+    {
+        CurrencyConverter converter = new();
+
+        Assert.Throws<InvalidExchangeRateException>(() => converter.SetExchangeRate(_source, _target, float.Epsilon));
+    }
     
     #endregion
     
