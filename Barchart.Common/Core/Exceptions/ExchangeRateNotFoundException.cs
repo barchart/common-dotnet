@@ -16,7 +16,7 @@ public class ExchangeRateNotFoundException : InvalidOperationException
     /// <param name="target">
     ///     The target currency.
     /// </param>
-    public ExchangeRateNotFoundException(Currency source, Currency target) : base($"The exchange rate for the ({source}) to ({target}) currency pair was not found.")
+    public ExchangeRateNotFoundException(Currency source, Currency target) : base($"The exchange rate for the ({ source }) to ({ target }) currency pair was not found.")
     {
         
     }

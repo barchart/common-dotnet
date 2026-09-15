@@ -13,7 +13,7 @@ public class InvalidAmountException : ArgumentOutOfRangeException
     /// <param name="amount">
     ///     The amount that is invalid.
     /// </param>
-    public InvalidAmountException(float amount) : base($"The amount({amount}) must be a number greater or equal to zero.")
+    public InvalidAmountException(float amount) : base($"The amount({ amount }) must be a number greater or equal to zero.")
     {
         
     }

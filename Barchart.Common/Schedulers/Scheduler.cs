@@ -37,8 +37,7 @@ public static class Scheduler
     /// <exception cref="MaximumAttemptsException">
     ///     Thrown when the maximum number of attempts is reached.
     /// </exception>
-    public static async Task BackoffAsync(Func<Task> action, int initialDelay, string actionDescription,
-        int maxAttempts, Action<int>? failureCallback, int maxDelay)
+    public static async Task BackoffAsync(Func<Task> action, int initialDelay, string actionDescription, int maxAttempts, Action<int>? failureCallback, int maxDelay)
     {
         int attempts = 0;
         int delay = initialDelay;

@@ -13,7 +13,7 @@ public class SecretNotFoundException : InvalidOperationException
     /// <param name="secretName">
     ///     The name of the secret that could not be found.
     /// </param>
-    public SecretNotFoundException(string secretName) : base($"The secret ({secretName}) could not be found in the AWS Secrets Manager service.")
+    public SecretNotFoundException(string secretName) : base($"The secret ({ secretName }) could not be found in the AWS Secrets Manager service.")
     {
         
     }

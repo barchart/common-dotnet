@@ -13,7 +13,7 @@ public class SecretDeserializationException : InvalidOperationException
     /// <param name="secretName">
     ///     The name of the secret that could not be deserialized.
     /// </param>
-    public SecretDeserializationException(string secretName) : base($"The secret ({secretName}) could not be deserialized.")
+    public SecretDeserializationException(string secretName) : base($"The secret ({ secretName }) could not be deserialized.")
     {
         
     }

@@ -115,6 +115,7 @@ public static class CurrencyExtensions
         if (Enum.TryParse(code, true, out Currency parsedCurrency) && Enum.IsDefined(parsedCurrency))
         {
             currency = parsedCurrency;
+            
             return true;
         }
 

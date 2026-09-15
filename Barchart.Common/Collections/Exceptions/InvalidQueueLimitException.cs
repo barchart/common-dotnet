@@ -13,7 +13,7 @@ public class InvalidQueueLimitException : ArgumentOutOfRangeException
     /// <param name="limit">
     ///     The value of the limit parameter that caused the exception.
     /// </param>
-    public InvalidQueueLimitException(int limit) : base($"The value of the limit parameter ({limit}) is invalid. The limit must be greater than zero.")
+    public InvalidQueueLimitException(int limit) : base($"The value of the limit parameter ({ limit }) is invalid. The limit must be greater than zero.")
     {
         
     }
