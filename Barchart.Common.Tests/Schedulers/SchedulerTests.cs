@@ -43,7 +43,7 @@ public class SchedulerTests
             await Task.CompletedTask;
         };
 
-        await Scheduler.BackoffAsync(action, initialDelay, actionDescription, maxAttempts, null, null, maxDelay);
+        await Scheduler.BackoffAsync(action, initialDelay, actionDescription, maxAttempts, null, maxDelay);
 
         Assert.Equal(1, executionCount);
     }
@@ -69,7 +69,7 @@ public class SchedulerTests
             await Task.CompletedTask;
         };
 
-        await Scheduler.BackoffAsync(action, initialDelay, actionDescription, maxAttempts, null, null, maxDelay);
+        await Scheduler.BackoffAsync(action, initialDelay, actionDescription, maxAttempts, null, maxDelay);
 
         Assert.Equal(3, attemptCount);
     }
@@ -84,7 +84,7 @@ public class SchedulerTests
 
         Func<Task> action = () => throw new Exception("Test Exception");
 
-        await Assert.ThrowsAsync<MaximumAttemptsException>(() => Scheduler.BackoffAsync(action, initialDelay, actionDescription, maxAttempts, null, null, maxDelay));
+        await Assert.ThrowsAsync<MaximumAttemptsException>(() => Scheduler.BackoffAsync(action, initialDelay, actionDescription, maxAttempts, null, maxDelay));
     }
 
     [Fact]
@@ -104,7 +104,7 @@ public class SchedulerTests
             callbackAttempts.Add(attempts);
         };
 
-        await Assert.ThrowsAsync<MaximumAttemptsException>(() => Scheduler.BackoffAsync(action, initialDelay, actionDescription, maxAttempts, failureCallback, null, maxDelay));
+        await Assert.ThrowsAsync<MaximumAttemptsException>(() => Scheduler.BackoffAsync(action, initialDelay, actionDescription, maxAttempts, failureCallback, maxDelay));
 
         Assert.Equal(new[] { 1, 2, 3 }, callbackAttempts);
     }
