@@ -12,10 +12,11 @@ namespace Barchart.Common.Collections;
 /// <typeparam name="TElement">
 ///     The type of elements stored in the queue.
 /// </typeparam>
-public class LimitedSizeQueue<TElement> : Queue<TElement>
+public class LimitedSizeQueue<TElement>
 {
     #region Fields
 
+    private readonly Queue<TElement> _queue = new();
     private readonly int _limit;
 
     #endregion
@@ -43,6 +44,15 @@ public class LimitedSizeQueue<TElement> : Queue<TElement>
 
     #endregion
 
+    #region Properties
+
+    /// <summary>
+    ///     Gets the number of elements contained in the queue.
+    /// </summary>
+    public int Count => _queue.Count;
+
+    #endregion
+
     #region Methods
 
     /// <summary>
@@ -52,14 +62,42 @@ public class LimitedSizeQueue<TElement> : Queue<TElement>
     /// <param name="item">
     ///     The item to add to the queue.
     /// </param>
-    public new void Enqueue(TElement item)
+    public void Enqueue(TElement item)
     {
-        base.Enqueue(item);
-        
-        while (Count > _limit)
+        _queue.Enqueue(item);
+
+        if (_queue.Count > _limit)
         {
-            Dequeue();
+            _queue.Dequeue();
         }
+    }
+
+    /// <summary>
+    ///     Removes and returns the element at the beginning of the queue.
+    /// </summary>
+    /// <returns>
+    ///     The element removed from the beginning of the queue.
+    /// </returns>
+    /// <exception cref="InvalidOperationException">
+    ///     Thrown when the queue is empty.
+    /// </exception>
+    public TElement Dequeue()
+    {
+        return _queue.Dequeue();
+    }
+
+    /// <summary>
+    ///     Returns the element at the beginning of the queue without removing it.
+    /// </summary>
+    /// <returns>
+    ///     The element at the beginning of the queue.
+    /// </returns>
+    /// <exception cref="InvalidOperationException">
+    ///     Thrown when the queue is empty.
+    /// </exception>
+    public TElement Peek()
+    {
+        return _queue.Peek();
     }
     
     #endregion
