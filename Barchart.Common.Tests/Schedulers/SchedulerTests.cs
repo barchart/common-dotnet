@@ -29,35 +29,39 @@ public class SchedulerTests
     [Fact]
     public async Task BackoffAsync_SuccessfulExecution_NoRetries()
     {
-        int initialDelay = 100;
-        string actionDescription = "Test Action";
+        int initialDelay = 1;
+        const string actionDescription = "Test Action";
         int maxAttempts = 3;
         int maxDelay = 1000;
-        bool actionExecuted = false;
+        
+        int executionCount = 0;
 
         Func<Task> action = async () =>
         {
-            actionExecuted = true;
+            executionCount++;
+         
             await Task.CompletedTask;
         };
 
         await Scheduler.BackoffAsync(action, initialDelay, actionDescription, maxAttempts, null, null, maxDelay);
 
-        Assert.True(actionExecuted);
+        Assert.Equal(1, executionCount);
     }
 
     [Fact]
     public async Task BackoffAsync_FailureWithRetries_SuccessfulAfterRetries()
     {
-        int initialDelay = 100;
-        string actionDescription = "Test Action";
+        int initialDelay = 1;
+        const string actionDescription = "Test Action";
         int maxAttempts = 3;
         int maxDelay = 1000;
+       
         int attemptCount = 0;
 
         Func<Task> action = async () =>
         {
             attemptCount++;
+         
             if (attemptCount < 3)
             {
                 throw new Exception("Test Exception");
@@ -73,8 +77,8 @@ public class SchedulerTests
     [Fact]
     public async Task BackoffAsync_MaxAttemptsReached_ThrowsMaximumAttemptsException()
     {
-        int initialDelay = 100;
-        string actionDescription = "Test Action";
+        int initialDelay = 1;
+        const string actionDescription = "Test Action";
         int maxAttempts = 3;
         int maxDelay = 1000;
 
@@ -86,22 +90,23 @@ public class SchedulerTests
     [Fact]
     public async Task BackoffAsync_FailureCallback_InvokedOnFailure()
     {
-        int initialDelay = 100;
-        string actionDescription = "Test Action";
+        int initialDelay = 1;
+        const string actionDescription = "Test Action";
         int maxAttempts = 3;
         int maxDelay = 1000;
-        int failureCallbackCount = 0;
+      
+        List<int> callbackAttempts = [ ];
 
         Func<Task> action = () => throw new Exception("Test Exception");
 
-        Action<int> failureCallback = (attempts) =>
+        Action<int> failureCallback = attempts =>
         {
-            failureCallbackCount = attempts;
+            callbackAttempts.Add(attempts);
         };
 
         await Assert.ThrowsAsync<MaximumAttemptsException>(() => Scheduler.BackoffAsync(action, initialDelay, actionDescription, maxAttempts, failureCallback, null, maxDelay));
 
-        Assert.Equal(maxAttempts, failureCallbackCount);
+        Assert.Equal(new[] { 1, 2, 3 }, callbackAttempts);
     }
     
     #endregion
