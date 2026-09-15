@@ -24,7 +24,7 @@ public class DisposableAction : Disposable
     /// </exception>
     public DisposableAction(Action disposeAction)
     {
-        ArgumentNullException.ThrowIfNull(disposeAction, nameof(disposeAction));
+        ArgumentNullException.ThrowIfNull(disposeAction);
         
         _disposeAction = disposeAction;
     }

@@ -35,7 +35,7 @@ public class AwsSecretsManager
     /// </exception>
     public AwsSecretsManager(IAmazonSecretsManager secretsManager)
     {
-        ArgumentNullException.ThrowIfNull(secretsManager, nameof(secretsManager));
+        ArgumentNullException.ThrowIfNull(secretsManager);
         
         _secretsManager = secretsManager;
     }
@@ -72,7 +72,7 @@ public class AwsSecretsManager
     /// </exception>
     public async Task<string> GetSecret(string secretName)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(secretName, nameof(secretName));
+        ArgumentException.ThrowIfNullOrWhiteSpace(secretName);
         
         GetSecretValueRequest request = new()
         {
@@ -119,7 +119,7 @@ public class AwsSecretsManager
     /// </exception>
     public async Task<T> GetSecret<T>(string secretName)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(secretName, nameof(secretName));
+        ArgumentException.ThrowIfNullOrWhiteSpace(secretName);
 
         GetSecretValueRequest request = new()
         {
