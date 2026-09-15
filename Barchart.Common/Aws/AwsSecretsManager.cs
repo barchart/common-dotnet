@@ -87,10 +87,8 @@ public class AwsSecretsManager
         {
             response = await _secretsManager.GetSecretValueAsync(request);
         }
-        catch (Exception ex)
+        catch (ResourceNotFoundException)
         {
-            Console.WriteLine($"Error retrieving secret: {ex.Message}");
-            
             throw new SecretNotFoundException(secretName);
         }
 
@@ -120,28 +118,9 @@ public class AwsSecretsManager
     /// </exception>
     public async Task<T> GetSecret<T>(string secretName)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(secretName);
-
-        GetSecretValueRequest request = new()
-        {
-            SecretId = secretName,
-            VersionStage = "AWSCURRENT"
-        };
-
-        GetSecretValueResponse response;
-
-        try
-        {
-            response = await _secretsManager.GetSecretValueAsync(request);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error retrieving secret: {ex.Message}");
-            
-            throw new SecretNotFoundException(secretName);
-        }
+        string secret = await GetSecret(secretName);
         
-        T? deserialized = JsonSerializer.Deserialize<T>(response.SecretString);
+        T? deserialized = JsonSerializer.Deserialize<T>(secret);
         
         if (deserialized == null)
         {
