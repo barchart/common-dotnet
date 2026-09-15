@@ -16,11 +16,14 @@ public static class DateTimeExtensions
     /// <returns>
     ///    The number of milliseconds since the epoch.
     /// </returns>
+    /// <remarks>
+    ///     Values with an unspecified <see cref="DateTime.Kind"/> are treated as UTC.
+    /// </remarks>
     public static long GetMillisecondsSinceUnixEpoch(this DateTime date)
     {
-        TimeSpan timeSpan = date - DateTime.UnixEpoch;
+        DateTime normalizedDate = date.Kind == DateTimeKind.Unspecified ? DateTime.SpecifyKind(date, DateTimeKind.Utc) : date;
 
-        return Convert.ToInt64(timeSpan.TotalMilliseconds);
+        return new DateTimeOffset(normalizedDate).ToUnixTimeMilliseconds();
     }
     
     #endregion

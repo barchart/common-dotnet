@@ -18,7 +18,7 @@ public static class DateOnlyExtensions
     /// </returns>
     public static int GetDaysSinceEpoch(this DateOnly date)
     {
-        return CountDaysBetween(DateOnly.MinValue, date);
+        return date.DayNumber;
     }
     
     /// <summary>

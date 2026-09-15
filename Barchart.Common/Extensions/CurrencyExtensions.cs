@@ -84,7 +84,7 @@ public static class CurrencyExtensions
     /// </returns>
     public static Currency? FromCode(string code)
     {
-        return Enum.TryParse(code, true, out Currency currency) ? currency : null;
+        return Enum.TryParse(code, true, out Currency currency) && Enum.IsDefined(currency) ? currency : null;
     }
 
     /// <summary>
@@ -112,7 +112,7 @@ public static class CurrencyExtensions
     /// </returns>
     public static bool TryParse(string code, out Currency? currency)
     {
-        if (Enum.TryParse(code, true, out Currency parsedCurrency))
+        if (Enum.TryParse(code, true, out Currency parsedCurrency) && Enum.IsDefined(parsedCurrency))
         {
             currency = parsedCurrency;
             return true;
