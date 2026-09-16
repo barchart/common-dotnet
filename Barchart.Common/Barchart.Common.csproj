@@ -5,6 +5,7 @@
         <OutputType>Library</OutputType>
         <TargetFramework>net9.0</TargetFramework>
         <OutputPath>bin\$(Configuration)</OutputPath>
+        <PackageOutputPath>bin\$(Configuration)</PackageOutputPath>
         <RootNamespace>Barchart.Common</RootNamespace>
         <PackageIcon>BarchartLogo.png</PackageIcon>
         <ImplicitUsings>enable</ImplicitUsings>
@@ -52,11 +53,11 @@
         <SignFile CertificateThumbprint="$(CertificateThumbprint)" SigningTarget="@(IntermediateAssembly)" TimestampUrl="$(TimestampUrl)" />
     </Target>
 
-    <Target Name="SignAfterPack" DependsOnTargets="Pack" Condition="'$(Configuration)' == 'Publish'">
-        <Exec Command="nuget sign bin\$(Configuration)\$(PackageId).$(PackageVersion).nupkg -CertificateFingerprint $(CertificateThumbprint) -Timestamper $(TimestampUrl)" />
+    <Target Name="SignAfterPack" DependsOnTargets="Pack" Condition="'$(Configuration)' == 'Release' Or '$(Configuration)' == 'Publish'">
+        <Exec Command="nuget sign $(PackageOutputPath)\$(PackageId).$(PackageVersion).nupkg -CertificateFingerprint $(CertificateThumbprint) -Timestamper $(TimestampUrl)" />
     </Target>
 
-    <Target Name="PublishToNuGet" DependsOnTargets="SignAfterPack" Condition="'$(Configuration)' == 'Publish'">
-        <Exec Command="nuget push bin\$(Configuration)\$(PackageId).$(PackageVersion).nupkg -ApiKey $(NuGetApiKey) -Source https://api.nuget.org/v3/index.json" />
+    <Target Name="PublishToNuGet" DependsOnTargets="SignAfterPack" Condition="'$(Configuration)' == 'Release' Or '$(Configuration)' == 'Publish'">
+        <Exec Command="nuget push $(PackageOutputPath)\$(PackageId).$(PackageVersion).nupkg -ApiKey $(NuGetApiKey) -Source https://api.nuget.org/v3/index.json" />
     </Target>
 </Project>
