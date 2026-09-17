@@ -26,7 +26,7 @@ dotnet add package Barchart.Common
 
 - Create and commit `.releases/<version>.md`.
 - Run `./Tools/release.sh <version>` to update the project version and push the release commit and tag.
-- Publish a [GitHub Release](https://github.com/barchart/common-dotnet/releases) from that tag. The release workflow tests, signs, and publishes the package to NuGet.
+- Publish a [GitHub Release](https://github.com/barchart/common-dotnet/releases) from that tag. The release workflow tests and publishes the package to NuGet.
 
 ## License
 

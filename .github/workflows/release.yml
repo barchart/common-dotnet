@@ -43,97 +43,21 @@ jobs:
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
-          name: unsigned-package
+          name: package
           path: artifacts/*.nupkg
-
-  sign:
-    name: Sign package
-    needs: build
-    runs-on: windows-latest
-
-    steps:
-      - name: Download unsigned package
-        uses: actions/download-artifact@v4
-        with:
-          name: unsigned-package
-          path: artifacts
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 9.0.x
-
-      - name: Install signing tools
-        shell: pwsh
-        run: |
-          dotnet tool install --tool-path tools --version 0.9.1-beta.26431.1 sign
-          dotnet tool install --tool-path tools --version 0.1.1 Knapcode.CertificateExtractor
-
-      - name: Login to Azure
-        uses: azure/login@v3
-        with:
-          allow-no-subscriptions: true
-          enable-AzPSSession: true
-          creds: >-
-            {"clientId":"${{ secrets.AZURE_CLIENT_ID }}","clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}","tenantId":"${{ secrets.AZURE_TENANT_ID }}"}
-
-      - name: Sign package
-        uses: azure/powershell@v3
-        env:
-          SIGNING_ENDPOINT: ${{ secrets.AZURE_ENDPOINT }}
-          SIGNING_ACCOUNT: ${{ secrets.AZURE_CODE_SIGNING_NAME }}
-          SIGNING_CERTIFICATE_PROFILE: ${{ secrets.AZURE_CERT_PROFILE_NAME }}
-        with:
-          azPSVersion: latest
-          inlineScript: |
-            ./tools/sign code artifact-signing *.nupkg `
-              -ase $env:SIGNING_ENDPOINT `
-              -asa $env:SIGNING_ACCOUNT `
-              -ascp $env:SIGNING_CERTIFICATE_PROFILE `
-              -act azure-powershell `
-              --base-directory "${{ github.workspace }}/artifacts"
-
-      - name: Verify package signature
-        shell: pwsh
-        run: |
-          $package = Get-ChildItem artifacts/*.nupkg
-          dotnet nuget verify --all $package.FullName
-
-      - name: Extract public signing certificate
-        shell: pwsh
-        run: |
-          $package = Get-ChildItem -Path artifacts -Filter *.nupkg | Select-Object -First 1
-          ./tools/nuget-cert-extractor `
-            --file $package.FullName `
-            --output certificates `
-            --author `
-            --code-signing `
-            --leaf
-
-      - name: Upload signed package
-        uses: actions/upload-artifact@v4
-        with:
-          name: signed-package
-          path: artifacts/*.nupkg
-
-      - name: Upload public signing certificate
-        uses: actions/upload-artifact@v4
-        with:
-          name: signing-certificate
-          path: certificates/*
 
   publish:
     name: Publish package
-    needs: sign
+    needs: build
     runs-on: ubuntu-latest
     permissions:
       id-token: write
 
     steps:
-      - name: Download signed package
+      - name: Download package
         uses: actions/download-artifact@v4
         with:
-          name: signed-package
+          name: package
           path: artifacts
 
       - name: Authenticate with NuGet
