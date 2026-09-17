@@ -1,11 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
-    <Import Project="../CodeSigningProperties.targets" />
-
     <PropertyGroup>
         <OutputType>Library</OutputType>
         <TargetFramework>net9.0</TargetFramework>
         <OutputPath>bin\$(Configuration)</OutputPath>
-        <PackageOutputPath>bin\$(Configuration)</PackageOutputPath>
         <RootNamespace>Barchart.Common</RootNamespace>
         <PackageIcon>BarchartLogo.png</PackageIcon>
         <ImplicitUsings>enable</ImplicitUsings>
@@ -22,8 +19,6 @@
         <RepositoryUrl>https://github.com/barchart/common-dotnet</RepositoryUrl>
         <RepositoryType>Git</RepositoryType>
         <PackageTags>Utilities;Barchart;barchart.com</PackageTags>
-        <SignAssembly>true</SignAssembly>
-        <Configurations>Debug;Release;Publish</Configurations>
         <Copyright>Copyright © 2024 Barchart.com, Inc.</Copyright>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -32,10 +27,6 @@
     <ItemGroup>
         <PackageReference Include="AWSSDK.SecretsManager" Version="4.0.0-preview.8" />
     </ItemGroup>
-
-    <PropertyGroup>
-        <TargetsTriggeredByCompilation>Sign</TargetsTriggeredByCompilation>
-    </PropertyGroup>
 
     <ItemGroup>
         <None Include="..\README.md" PackagePath="">
@@ -49,15 +40,4 @@
         </None>
     </ItemGroup>
 
-    <Target Name="Sign" Condition="'$(Configuration)' == 'Publish'">
-        <SignFile CertificateThumbprint="$(CertificateThumbprint)" SigningTarget="@(IntermediateAssembly)" TimestampUrl="$(TimestampUrl)" />
-    </Target>
-
-    <Target Name="SignAfterPack" DependsOnTargets="Pack" Condition="'$(Configuration)' == 'Release' Or '$(Configuration)' == 'Publish'">
-        <Exec Command="nuget sign $(PackageOutputPath)\$(PackageId).$(PackageVersion).nupkg -CertificateFingerprint $(CertificateThumbprint) -Timestamper $(TimestampUrl)" />
-    </Target>
-
-    <Target Name="PublishToNuGet" DependsOnTargets="SignAfterPack" Condition="'$(Configuration)' == 'Release' Or '$(Configuration)' == 'Publish'">
-        <Exec Command="nuget push $(PackageOutputPath)\$(PackageId).$(PackageVersion).nupkg -ApiKey $(NuGetApiKey) -Source https://api.nuget.org/v3/index.json" />
-    </Target>
 </Project>
