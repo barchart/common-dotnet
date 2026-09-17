@@ -14,7 +14,7 @@ public class CurrencyConverter
 {
     #region Fields
 
-    private readonly IDictionary<CurrencyExchangePair, float> _exchangeRates = new Dictionary<CurrencyExchangePair, float>();
+    private readonly Dictionary<CurrencyExchangePair, float> _exchangeRates = new Dictionary<CurrencyExchangePair, float>();
 
     #endregion
 

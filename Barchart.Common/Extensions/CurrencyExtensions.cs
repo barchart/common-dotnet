@@ -120,6 +120,7 @@ public static class CurrencyExtensions
         }
 
         currency = null;
+        
         return false;
     }
     
