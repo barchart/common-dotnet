@@ -8,7 +8,7 @@ if [[ $# -ne 1 ]]; then
 fi
 
 VERSION="${1#v}"
-TAG="v${VERSION}"
+TAG="$VERSION"
 
 if [[ ! $VERSION =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
     echo "Invalid version: $1"
