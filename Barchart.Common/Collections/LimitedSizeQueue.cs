@@ -1,5 +1,6 @@
 #region Using Statements
 
+using System.Collections;
 using Barchart.Common.Collections.Exceptions;
 
 #endregion
@@ -12,7 +13,7 @@ namespace Barchart.Common.Collections;
 /// <typeparam name="TElement">
 ///     The type of elements stored in the queue.
 /// </typeparam>
-public class LimitedSizeQueue<TElement>
+public class LimitedSizeQueue<TElement> : IEnumerable<TElement>
 {
     #region Fields
 
@@ -98,6 +99,22 @@ public class LimitedSizeQueue<TElement>
     public TElement Peek()
     {
         return _queue.Peek();
+    }
+
+    /// <summary>
+    ///     Returns an enumerator that iterates through the queue.
+    /// </summary>
+    /// <returns>
+    ///     An enumerator for the queue.
+    /// </returns>
+    public IEnumerator<TElement> GetEnumerator()
+    {
+        return _queue.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
     }
     
     #endregion
