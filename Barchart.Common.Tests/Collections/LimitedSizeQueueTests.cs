@@ -125,4 +125,22 @@ public class LimitedSizeQueueTests
     }
 
     #endregion
+
+    #region Test Methods (Enumeration)
+
+    [Fact]
+    public void ToList_QueueContainsItems_ReturnsItemsInQueueOrder()
+    {
+        LimitedSizeQueue<int> queue = new(3);
+
+        queue.Enqueue(1);
+        queue.Enqueue(2);
+        queue.Enqueue(3);
+
+        List<int> items = queue.ToList();
+
+        Assert.Equal([ 1, 2, 3 ], items);
+    }
+
+    #endregion
 }
